@@ -3,19 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package diariofacilpatrones;
+package edu.ulatina.diariofacil.patrones;
 
 /**
  *
  * @author blaken
  */
-public class DiarioFacilPatrones {
+public class ComportamientoAmin implements IComportamiento{
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    @Override
+    public void login() {
+        System.out.println("login as admin");
     }
     
 }
