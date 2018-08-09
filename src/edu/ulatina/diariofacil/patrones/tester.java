@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 package edu.ulatina.diariofacil.patrones;
+import edu.ulatina.diariofacil.model.Admin;
 import edu.ulatina.diariofacil.dao.UsuarioDAO;
-import edu.ulatina.diariofacil.model.Usuario;
+import edu.ulatina.diariofacil.model.*;
 /**
  *
  * @author blaken
@@ -13,11 +14,10 @@ import edu.ulatina.diariofacil.model.Usuario;
 public class tester {
     
     public static void main(String[] args) {
-       Usuario user = new Usuario(0,"Deivid","Alberto","deividauq93@hotmail.com","123",1);
-       UsuarioDAO u = new UsuarioDAO();
-       u.crearUsuario(user);
-              u.crearUsuario(user);
-
+        Admin admin0 = new Admin(1,"Daniel", "Segura", "daniel@gmail.com"
+                ,"pass", 1,new ComportamientoAdmin());
+        admin0.getComportamiento().menuPrincipal();
+                
     }
     
 }
