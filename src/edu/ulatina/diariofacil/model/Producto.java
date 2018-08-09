@@ -85,6 +85,10 @@ public class Producto {
     public void setProveedores(List<Proveedor> proveedores) {
         this.proveedores = proveedores;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Producto{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", precio=" + precio + ", descuento=" + descuento + ", inventario=" + inventario + '}';
+    }
     
 }

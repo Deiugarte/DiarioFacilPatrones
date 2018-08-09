@@ -5,10 +5,15 @@
  */
 package edu.ulatina.diariofacil.idao;
 
+import edu.ulatina.diariofacil.model.Orden;
+
 /**
  *
  * @author blaken
  */
 public interface IOrdenDAO {
-    
+    public void crear(Orden orden);
+    public void borrar(Orden orden);
+    public Orden obtener(Orden orden);
+    public void actualizar(Orden orden);
 }

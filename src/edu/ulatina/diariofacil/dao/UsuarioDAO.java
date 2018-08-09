@@ -11,6 +11,9 @@ import edu.ulatina.diariofacil.model.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
@@ -19,9 +22,10 @@ import org.apache.logging.log4j.LogManager;
  * @author blaken
  */
 public class UsuarioDAO implements IUsuarioDAO {
+
     private final Conector conectorJDBC = new Conector();
     private static final Logger LOG = LogManager.getLogger(UsuarioDAO.class.getName());
-    
+
     @Override
     public void crearUsuario(Usuario usuario) {
         Connection conn = conectorJDBC.conectar();
@@ -36,27 +40,107 @@ public class UsuarioDAO implements IUsuarioDAO {
             ps.executeUpdate();
 
         } catch (SQLException ex) {
-            LOG.error( "No se puedo realizar la insercion del usuario: " + usuario );
-        }
-        finally {
+            LOG.error("No se puedo realizar la insercion del usuario: " + usuario, ex);
+        } finally {
             conectorJDBC.cerrarConexion(conn, ps, null);
         }
-       
+
     }
 
     @Override
     public void borrarUsuario(Usuario usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection conn = conectorJDBC.conectar();
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement("Delete from Usuarios Where id=?");
+            ps.setInt(1, usuario.getId());
+            ps.executeUpdate();
+
+        } catch (SQLException ex) {
+            LOG.error("No se puedo borrar el usuario: " + usuario, ex);
+        } finally {
+            conectorJDBC.cerrarConexion(conn, ps, null);
+        }
     }
 
     @Override
     public Usuario obtenerUsuario(Usuario usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection conn = conectorJDBC.conectar();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Usuario resultado = null;
+        try {
+            ps = conn.prepareStatement("Select id,nombre, apellido, idTipoUsuario, correo, contrasena from Usuarios where id=? ");
+            ps.setInt(1, usuario.getId());
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String nombre = rs.getString("nombre");
+                String apellido = rs.getString("apellido");
+                String correo = rs.getString("correo");
+                String contrasena = rs.getString("contrasena");
+                int idTipoUsuario = rs.getInt("idTipoUsuario");
+               //                Cliente resultado = idTipoUsuario == 1 ? new TODO: change to admin or client if tipo usuario
+//                usuarios.add(new Usuario(id, nombre, apellido, correo, contrasena, idTipoUsuario));
+            }
+
+        } catch (SQLException ex) {
+            LOG.error("No se pudo obtener el usuario", ex);
+        } finally {
+            conectorJDBC.cerrarConexion(conn, ps, rs);
+        }
+        return resultado;
     }
 
     @Override
     public void actualizarUsuario(Usuario usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection conn = conectorJDBC.conectar();
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement("Update  Usuarios set nombre=? , apellido=?, idTipoUsuario=?, correo=?, contrasena=? where id=?");
+            ps.setString(1, usuario.getNombre());
+            ps.setString(2, usuario.getApellido());
+            ps.setInt(3, usuario.getTipoUsuario());
+            ps.setString(4, usuario.getCorreo());
+            ps.setString(5, usuario.getContrasena());
+            ps.setInt(6, usuario.getId());
+            ps.executeUpdate();
+
+        } catch (SQLException ex) {
+            LOG.error("No se puedo realizar la insercion del usuario: " + usuario, ex);
+        } finally {
+            conectorJDBC.cerrarConexion(conn, ps, null);
+        }
     }
-    
+
+
+
+    @Override
+    public List<Usuario> obtenerUsuarios() {
+        Connection conn = conectorJDBC.conectar();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Usuario> usuarios = new ArrayList<>();
+        try {
+            ps = conn.prepareStatement("Select id,nombre, apellido, idTipoUsuario, correo, contrasena from Usuarios ");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String nombre = rs.getString("nombre");
+                String apellido = rs.getString("apellido");
+                String correo = rs.getString("correo");
+                String contrasena = rs.getString("contrasena");
+                int idTipoUsuario = rs.getInt("idTipoUsuario");
+//                Cliente resultado = idTipoUsuario == 1 ? new TODO: change to admin or client if tipo usuario
+//                usuarios.add(new Usuario(id, nombre, apellido, correo, contrasena, idTipoUsuario));
+            }
+
+        } catch (SQLException ex) {
+            LOG.error("No se pudo obtener los usuarios", ex);
+        } finally {
+            conectorJDBC.cerrarConexion(conn, ps, rs);
+        }
+        return usuarios;
+    }
+
 }

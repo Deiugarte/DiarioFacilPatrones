@@ -5,10 +5,15 @@
  */
 package edu.ulatina.diariofacil.idao;
 
+import edu.ulatina.diariofacil.model.Item;
+
 /**
  *
  * @author blaken
  */
 public interface IItemDAO {
-    
+    public void crear(Item item);
+    public void borrar(Item item);
+    public Item obtener(Item item);
+    public void actualizar(Item item);
 }
