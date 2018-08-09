@@ -20,6 +20,10 @@ public abstract class Usuario {
         this.comportamiento = comportamiento;
     }
 
+    public Usuario() {
+    }
+
+    
     public int getId() {
         return id;
     }
