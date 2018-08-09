@@ -99,8 +99,7 @@ public class ComportamientoAdmin implements IComportamiento{
                 System.out.println("\nSaliendo...\n");
                 break;
         }
-    }  
-    
+    }     
     public void menuMantProductos() {
            System.out.print("OPCIONES DE PRODUCTO" + "\n"
                    + "1. Agregar Producto" + "\n"

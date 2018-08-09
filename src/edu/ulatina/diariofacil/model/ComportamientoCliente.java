@@ -9,7 +9,7 @@ package edu.ulatina.diariofacil.model;
  *
  * @author blaken
  */
-public class ComportamientoUsuario implements IComportamiento{    
+public class ComportamientoCliente implements IComportamiento{    
     @Override
     public void menuPrincipal(){
         //TODO...

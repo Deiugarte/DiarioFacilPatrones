@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package edu.ulatina.diariofacil.patrones;
-import edu.ulatina.diariofacil.model.Admin;
-import edu.ulatina.diariofacil.dao.UsuarioDAO;
 import edu.ulatina.diariofacil.model.*;
 /**
  *
@@ -17,7 +15,11 @@ public class tester {
         Admin admin0 = new Admin(1,"Daniel", "Segura", "daniel@gmail.com"
                 ,"pass", 1,new ComportamientoAdmin());
         admin0.getComportamiento().menuPrincipal();
-                
+        
+        
+        Cliente cliente0 = new Cliente(2, "Fran", "Carrillo",
+                "fran@gmail.com", "pass", 2,  new ComportamientoCliente());
+
     }
     
 }
