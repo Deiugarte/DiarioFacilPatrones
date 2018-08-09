@@ -10,7 +10,8 @@ package edu.ulatina.diariofacil.model;
  * @author madrizdm
  */
 public class Admin extends Usuario{
-    public Admin(int id, String nombre, String apellido, String correo, String contrasena, int tipoUsuario, IComportamiento comportamiento){
-        super(id, nombre, apellido, correo, contrasena, tipoUsuario, comportamiento);
+
+    public Admin(int id, String nombre, String apellido, String correo, String contrasena, int tipoUsuario){
+        super(id, nombre, apellido, correo, contrasena, tipoUsuario, new ComportamientoAdmin());
     }    
 }

@@ -76,6 +76,9 @@ public abstract class Usuario {
         this.comportamiento = comportamiento;
     }
     
+    public void menuPrincipal() {
+        this.comportamiento.menuPrincipal();
+    }
    
     @Override
     public String toString() {

@@ -13,13 +13,8 @@ public class tester {
     
     public static void main(String[] args) {
         Admin admin0 = new Admin(1,"Daniel", "Segura", "daniel@gmail.com"
-                ,"pass", 1,new ComportamientoAdmin());
-        admin0.getComportamiento().menuPrincipal();
-        
-        
-        Cliente cliente0 = new Cliente(2, "Fran", "Carrillo",
-                "fran@gmail.com", "pass", 2,  new ComportamientoCliente());
-
+                ,"pass", 1);
+        admin0.menuPrincipal();
     }
     
 }
