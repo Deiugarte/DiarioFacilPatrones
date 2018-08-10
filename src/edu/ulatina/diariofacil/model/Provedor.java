@@ -9,12 +9,12 @@ package edu.ulatina.diariofacil.model;
  *
  * @author blaken
  */
-public class Proveedor {
+public class Provedor {
     private int id;
     private String nombre;
     private String correo;
 
-    public Proveedor(int id, String nombre, String correo) {
+    public Provedor(int id, String nombre, String correo) {
         this.id = id;
         this.nombre = nombre;
         this.correo = correo;
