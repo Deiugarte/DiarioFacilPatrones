@@ -19,7 +19,7 @@ public class Producto {
     private int precio;
     private int descuento;
     private int inventario;
-    private List<Proveedor> proveedores = new ArrayList<>();
+    private List<Provedor> proveedores = new ArrayList<>();
 
     public Producto(int id, String nombre, String descripcion, int precio, int descuento, int inventario) {
         this.id = id;
@@ -78,11 +78,11 @@ public class Producto {
         this.inventario = inventario;
     }
 
-    public List<Proveedor> getProveedores() {
+    public List<Provedor> getProveedores() {
         return proveedores;
     }
 
-    public void setProveedores(List<Proveedor> proveedores) {
+    public void setProveedores(List<Provedor> proveedores) {
         this.proveedores = proveedores;
     }
 

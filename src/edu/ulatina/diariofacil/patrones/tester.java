@@ -6,9 +6,9 @@
 package edu.ulatina.diariofacil.patrones;
 
 
-import edu.ulatina.diariofacil.dao.ProveedorDAO;
+import edu.ulatina.diariofacil.dao.ProvedorDAO;
 import edu.ulatina.diariofacil.model.Admin;
-import edu.ulatina.diariofacil.model.Proveedor;
+import edu.ulatina.diariofacil.model.Provedor;
 
 
 /**
@@ -23,8 +23,8 @@ public class tester {
                  "pass", 1);
         //admin0.menuPrincipal();
 
-        Proveedor p = new Proveedor(1, "asd", "ASD");
-        ProveedorDAO pDao = new ProveedorDAO();
+        Provedor p = new Provedor(1, "asd", "ASD");
+        ProvedorDAO pDao = new ProvedorDAO();
         pDao.crear(p);
         pDao.crear(p);
         p.setCorreo("v2");

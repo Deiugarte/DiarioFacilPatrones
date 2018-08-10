@@ -6,26 +6,26 @@
 package edu.ulatina.diariofacil.dao;
 
 import edu.ulatina.diariofacil.jdbc.Conector;
-import edu.ulatina.diariofacil.idao.IProveedorDAO;
-import edu.ulatina.diariofacil.model.Proveedor;
+import edu.ulatina.diariofacil.model.Provedor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import edu.ulatina.diariofacil.idao.IProvedorDAO;
 
 /**
  *
  * @author blaken
  */
-public class ProveedorDAO implements IProveedorDAO {
+public class ProvedorDAO implements IProvedorDAO {
     
     private final Conector conectorJDBC = new Conector();
     private static final Logger LOG = LogManager.getLogger(UsuarioDAO.class.getName());
 
     @Override
-    public void crear(Proveedor proveedor) {
+    public void crear(Provedor proveedor) {
         Connection conn = conectorJDBC.conectar();
         PreparedStatement ps = null;
         try {
@@ -42,7 +42,7 @@ public class ProveedorDAO implements IProveedorDAO {
     }
 
     @Override
-    public void borrar(Proveedor proveedor) {
+    public void borrar(Provedor proveedor) {
         Connection conn = conectorJDBC.conectar();
         PreparedStatement ps = null;
         try {
@@ -58,11 +58,11 @@ public class ProveedorDAO implements IProveedorDAO {
     }
 
     @Override
-    public Proveedor obtener(Proveedor proveedor) {
+    public Provedor obtener(Provedor proveedor) {
         Connection conn = conectorJDBC.conectar();
         PreparedStatement ps = null;
         ResultSet rs = null;
-        Proveedor resultado = null;
+        Provedor resultado = null;
         try {
             ps = conn.prepareStatement("Select id, nombre, correo from Proveedores where id=? ");
             ps.setInt(1, proveedor.getId());
@@ -71,7 +71,7 @@ public class ProveedorDAO implements IProveedorDAO {
                 int id = rs.getInt("id");
                 String nombre = rs.getString("nombre");
                 String correo = rs.getString("correo");
-                resultado = new Proveedor(id, nombre, correo);
+                resultado = new Provedor(id, nombre, correo);
             }
 
         } catch (SQLException ex) {
@@ -83,7 +83,7 @@ public class ProveedorDAO implements IProveedorDAO {
     }
 
     @Override
-    public void actualizar(Proveedor proveedor) {
+    public void actualizar(Provedor proveedor) {
         Connection conn = conectorJDBC.conectar();
         PreparedStatement ps = null;
         try {
