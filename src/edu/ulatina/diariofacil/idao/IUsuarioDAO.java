@@ -6,6 +6,7 @@
 package edu.ulatina.diariofacil.idao;
 
 import edu.ulatina.diariofacil.model.Usuario;
+import java.util.List;
 
 /**
  *
@@ -16,4 +17,5 @@ public interface IUsuarioDAO {
     public void borrarUsuario(Usuario usuario);
     public Usuario obtenerUsuario(Usuario usuario);
     public void actualizarUsuario(Usuario usuario);
+    public List<Usuario> obtenerUsuarios();
 }

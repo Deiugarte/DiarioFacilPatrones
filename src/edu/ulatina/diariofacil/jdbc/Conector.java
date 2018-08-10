@@ -50,7 +50,6 @@ public class Conector {
             if (conn != null && !conn.isClosed()) {
                 conn.close();
             }
-
         } catch (Exception e) {
             LOG.error("No se pudo cerrar la conexion con la base de datos", e);
         }
