@@ -16,12 +16,12 @@ public class Producto {
     private int id;
     private String nombre;
     private String descripcion;
-    private int precio;
-    private int descuento;
+    private double precio;
+    private double descuento;
     private int inventario;
-    private List<Provedor> proveedores = new ArrayList<>();
+    private List<Provedor> provedores = new ArrayList<>();
 
-    public Producto(int id, String nombre, String descripcion, int precio, int descuento, int inventario) {
+    public Producto(int id, String nombre, String descripcion, double precio, double descuento, int inventario) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -29,6 +29,17 @@ public class Producto {
         this.descuento = descuento;
         this.inventario = inventario;
     }
+
+    public Producto(String nombre, String descripcion, double precio, double descuento, int inventario, List<Provedor> provedores) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.descuento = descuento;
+        this.inventario = inventario;
+        this.provedores = provedores;
+    }
+    
+
 
     public int getId() {
         return id;
@@ -54,19 +65,19 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
-    public int getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(int precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
 
-    public int getDescuento() {
+    public double getDescuento() {
         return descuento;
     }
 
-    public void setDescuento(int descuento) {
+    public void setDescuento(double descuento) {
         this.descuento = descuento;
     }
 
@@ -79,16 +90,17 @@ public class Producto {
     }
 
     public List<Provedor> getProveedores() {
-        return proveedores;
+        return provedores;
     }
 
     public void setProveedores(List<Provedor> proveedores) {
-        this.proveedores = proveedores;
+        this.provedores = proveedores;
     }
 
     @Override
     public String toString() {
-        return "Producto{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", precio=" + precio + ", descuento=" + descuento + ", inventario=" + inventario + '}';
+        return "ID: " + id + ". |  Nombre: " + nombre + ". | Descripcion: " + descripcion + ". | Precio: " + precio
+                + ". | Descuento:"+ descuento + ". | Inventario: " + inventario + ".";
     }
     
 }

@@ -14,6 +14,8 @@ import java.sql.SQLException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import edu.ulatina.diariofacil.idao.IProvedorDAO;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -58,17 +60,16 @@ public class ProvedorDAO implements IProvedorDAO {
     }
 
     @Override
-    public Provedor obtener(Provedor proveedor) {
+    public Provedor obtener(int id) {
         Connection conn = conectorJDBC.conectar();
         PreparedStatement ps = null;
         ResultSet rs = null;
         Provedor resultado = null;
         try {
             ps = conn.prepareStatement("Select id, nombre, correo from Proveedores where id=? ");
-            ps.setInt(1, proveedor.getId());
+            ps.setInt(1,id);
             rs = ps.executeQuery();
             while (rs.next()) {
-                int id = rs.getInt("id");
                 String nombre = rs.getString("nombre");
                 String correo = rs.getString("correo");
                 resultado = new Provedor(id, nombre, correo);
@@ -79,6 +80,30 @@ public class ProvedorDAO implements IProvedorDAO {
         } finally {
             conectorJDBC.cerrarConexion(conn, ps, rs);
         }
+        return resultado;
+    }
+    @Override
+    public List<Provedor> obtenerTodos() {
+        Connection conn = conectorJDBC.conectar();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Provedor> resultado = new ArrayList<>();
+        try {
+            ps = conn.prepareStatement("Select id, nombre, correo from Proveedores");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String nombre = rs.getString("nombre");
+                String correo = rs.getString("correo");
+                resultado.add(new Provedor(id, nombre, correo));
+            }
+
+        } catch (SQLException ex) {
+            LOG.error("No se pudieron obtener los provedores", ex);
+        } finally {
+            conectorJDBC.cerrarConexion(conn, ps, rs);
+        }
+        
         return resultado;
     }
 

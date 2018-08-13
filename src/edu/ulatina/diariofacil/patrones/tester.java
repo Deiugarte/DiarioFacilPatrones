@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.ulatina.diariofacil.patrones;
 
 
@@ -21,19 +16,9 @@ public class tester {
 
         Admin admin0 = new Admin(1, "Daniel", "Segura", "daniel@gmail.com",
                  "pass", 1);
-        //admin0.menuPrincipal();
+        admin0.menuPrincipal();
 
-        Provedor p = new Provedor(1, "asd", "ASD");
-        ProvedorDAO pDao = new ProvedorDAO();
-        pDao.crear(p);
-        pDao.crear(p);
-        p.setCorreo("v2");
-        pDao.actualizar(p);
-        p.setId(3);
-        System.out.println(pDao.obtener(p));
-        pDao.borrar(p);
-        System.out.println(pDao.obtener(p));
-
+                
 
     }
 

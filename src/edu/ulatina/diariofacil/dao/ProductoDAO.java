@@ -117,16 +117,41 @@ public class ProductoDAO implements IProductoDAO {
         return resultado;
     }
 
+ public Producto obtener(int id) {
+        Connection conn = conectorJDBC.conectar();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Producto resultado = null;
+        try {
+            ps = conn.prepareStatement("Select id, nombre, descripcion, precio, descuento, inventario from Productos where id=? ");
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                String nombre = rs.getString("nombre");
+                String descripcion = rs.getString("descripcion");
+                int precio = rs.getInt("precio");
+                int descuento = rs.getInt("descuento");
+                int inventario = rs.getInt("inventario");
+                resultado = new Producto(id, nombre, descripcion, precio, descuento, inventario);
+            }
+
+        } catch (SQLException ex) {
+            LOG.error("No se pudo obtener el producto", ex);
+        } finally {
+            conectorJDBC.cerrarConexion(conn, ps, rs);
+        }
+        return resultado;
+    }
     @Override
-    public void actualizar(Producto producto) {
+    public void actualizar (Producto producto) {
         Connection conn = conectorJDBC.conectar();
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement("Update Productos set nombre=? , descripcion=?, precio=?, descuento=?, inventario=? where id=?");
             ps.setString(1, producto.getNombre());
             ps.setString(2, producto.getDescripcion());
-            ps.setInt(3, producto.getPrecio());
-            ps.setInt(4, producto.getDescuento());
+            ps.setDouble(3, producto.getPrecio());
+            ps.setDouble(4, producto.getDescuento());
             ps.setInt(5, producto.getInventario());
             ps.setInt(6, producto.getId());
             ps.executeUpdate();

@@ -6,6 +6,7 @@
 package edu.ulatina.diariofacil.idao;
 
 import edu.ulatina.diariofacil.model.Provedor;
+import java.util.List;
 
 /**
  *
@@ -14,6 +15,8 @@ import edu.ulatina.diariofacil.model.Provedor;
 public interface IProvedorDAO {
     public void crear(Provedor proveedor);
     public void borrar(Provedor proveedor);
-    public Provedor obtener(Provedor proveedor);
+    public Provedor obtener(int ide);
+    public List <Provedor> obtenerTodos();
+    
     public void actualizar(Provedor proveedor);
 }
