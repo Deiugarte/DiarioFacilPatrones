@@ -3,6 +3,7 @@ package edu.ulatina.diariofacil.model;
 import edu.ulatina.diariofacil.dao.ProductoDAO;
 import edu.ulatina.diariofacil.dao.ProvedorDAO;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 import static jdk.nashorn.tools.ShellFunctions.input;
@@ -183,12 +184,38 @@ public class ComportamientoAdmin implements IComportamiento {
 
     //Acciones sobre Provedores.
     public void agregarProvedor() {
-        ProvedorDAO provedor = new ProvedorDAO();
+        List<Provedor> listProvedores = provedorDAO.obtenerTodos();
+        System.out.println("--- * Agregar Provedor * ---\n"
+                + "Digite el nombre del Provedor: ");
+        leer.nextLine();
+        String nombre = leer.nextLine();
 
+        System.out.println("Digite el correo del Provedor: ");
+        String correo = leer.nextLine();
+        provedorDAO.crear(nombre, correo);
     }
 
     public void editarProvedor() {
-        //TODO
+        provedorDAO.obtenerTodos().forEach((a) -> System.out.println(a));
+        System.out.println("--- * Editarr Provedor * ---\n"
+                + "Digite el ID del Provedor a editar: ");
+        int id = leer.nextInt();
+
+        Provedor provedor = provedorDAO.obtener(id);
+
+        System.out.println("Digite:\n1. Editar nombre del provedor.\n"
+                + "2. Editar correo del provedor.");
+        int opc = leer.nextInt();
+        if (opc == 1) {
+            System.out.println("Digite el nuevo nombre: ");
+            leer.nextLine();
+            provedor.setNombre(leer.nextLine());
+        } else if (opc == 2) {
+            System.out.println("Digite el nuevo correo: ");
+            leer.nextLine();
+            provedor.setCorreo(leer.nextLine());
+        }
+        provedorDAO.actualizar(provedor);
     }
 
     public void eliminarProvedor() {
@@ -255,6 +282,7 @@ public class ComportamientoAdmin implements IComportamiento {
         }
     }
 
+    //Menu productos listo.
     public void menuMantProductos() {
         System.out.print("OPCIONES DE PRODUCTO" + "\n"
                 + "1. Agregar Producto" + "\n"
@@ -275,16 +303,52 @@ public class ComportamientoAdmin implements IComportamiento {
                 break;
             case 2:
                 editarProducto();
+                volverMenuMantProductos();
                 break;
             case 3:
                 eliminarProducto();
+                volverMenuMantProductos();
                 break;
             case 4:
                 verProductos();
+                volverMenuMantProductos();
                 break;
             case 5:
                 menuPrincipal();
                 break;
+        }
+    }
+
+    public void menuMantProveedores() {
+        System.out.print("Mantenimiento de Provedores\n"
+                + "1. Agregar Proveedor\n"
+                + "2. Editar Proveedor\n"
+                + "3. Eliminar Proveedor\n"
+                + "4. Solicitar pedido\n"
+                + "5. Ver Proveedores\n"
+                + "6. Ver Pedidos\n"
+                + "7.Regresar\n"
+                + "Digite una opcion:\n");
+        int opcion = leer.nextInt();
+        switch (opcion) {
+            case 1:
+                agregarProvedor();
+                break;
+            case 2:
+                editarProvedor();
+                break;
+            case 3:
+                //eliminarProveedor();
+                break;
+            case 4:
+                // solicitarPedido();
+                break;
+            case 5:
+            // verProveedores();
+            case 6:
+            // verPedidos();
+            case 7:
+            // menuAdmin();
         }
     }
 
@@ -310,7 +374,7 @@ public class ComportamientoAdmin implements IComportamiento {
                 //verPromociones();
                 break;
             case 4:
-                // menuAdmin();
+                menuPrincipal();
                 break;
         }
     }
@@ -334,40 +398,8 @@ public class ComportamientoAdmin implements IComportamiento {
             case 3:
             //verCombos();
             case 4:
-            //menuAdmin();
+                menuPrincipal();
         }
     }
 
-    public void menuMantProveedores() {
-        System.out.print("Mantenimiento de Provedores\n"
-                + "1. Agregar Proveedor\n"
-                + "2. Editar Proveedor\n"
-                + "3. Eliminar Proveedor\n"
-                + "4. Solicitar pedido\n"
-                + "5. Ver Proveedores\n"
-                + "6. Ver Pedidos\n"
-                + "7.Regresar\n"
-                + "Digite una opcion:\n");
-        int opcion = leer.nextInt();
-        switch (opcion) {
-            case 1:
-                // agregarProveedor();
-                break;
-            case 2:
-                // editarProveedor();
-                break;
-            case 3:
-                //eliminarProveedor();
-                break;
-            case 4:
-                // solicitarPedido();
-                break;
-            case 5:
-            // verProveedores();
-            case 6:
-            // verPedidos();
-            case 7:
-            // menuAdmin();
-        }
-    }
 }
