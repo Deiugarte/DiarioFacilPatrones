@@ -74,16 +74,16 @@ public class ProductoDAO implements IProductoDAO {
     }
 
     @Override
-    public void borrar(Producto producto) {
+    public void borrar(int id) {
         Connection conn = conectorJDBC.conectar();
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement("Delete from Productos Where id=?");
-            ps.setInt(1, producto.getId());
+            ps.setInt(1, id);
             ps.executeUpdate();
 
         } catch (SQLException ex) {
-            LOG.error("No se puedo borrar el producto: " + producto, ex);
+            LOG.error("No se puedo borrar el producto: ", ex);
         } finally {
             conectorJDBC.cerrarConexion(conn, ps, null);
         }

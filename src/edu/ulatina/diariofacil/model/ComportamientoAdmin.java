@@ -58,16 +58,16 @@ public class ComportamientoAdmin implements IComportamiento {
 
         System.out.println("Que desea editar?\n1. Nombre.\n2. Descripcion."
                 + "\n3. Precio.\n4. Descuento.\n5. Inventario.");
-                //TODO :   + "\n6. Lista de Provedores.\n");
+        //TODO :   + "\n6. Lista de Provedores.\n");
         String nuevoValorStr;
         double nuevoValorDoub;
 
         switch (leer.nextInt()) {
             case 1: {
                 System.out.println("Digite el nuevo Nombre");
-                leer.nextLine();                        
+                leer.nextLine();
                 nuevoValorStr = leer.nextLine();
-                
+
                 Producto duplicado = productoDAO.obtener(id);
                 duplicado.setNombre(nuevoValorStr);
                 productoDAO.actualizar(duplicado);
@@ -75,9 +75,9 @@ public class ComportamientoAdmin implements IComportamiento {
             }
             case 2: {
                 System.out.println("Digite la nueva Descripcion");
-                leer.nextLine();                        
+                leer.nextLine();
                 nuevoValorStr = leer.nextLine();
-                
+
                 Producto duplicado = productoDAO.obtener(id);
                 duplicado.setDescripcion(nuevoValorStr);
                 productoDAO.actualizar(duplicado);
@@ -85,9 +85,9 @@ public class ComportamientoAdmin implements IComportamiento {
             }
             case 3: {
                 System.out.println("Digite el nuevo Precio");
-                leer.nextLine();                        
+                leer.nextLine();
                 nuevoValorDoub = leer.nextDouble();
-                
+
                 Producto duplicado = productoDAO.obtener(id);
                 duplicado.setPrecio(nuevoValorDoub);
                 productoDAO.actualizar(duplicado);
@@ -95,9 +95,9 @@ public class ComportamientoAdmin implements IComportamiento {
             }
             case 4: {
                 System.out.println("Digite el nuevo Descuento");
-                leer.nextLine();                        
+                leer.nextLine();
                 nuevoValorDoub = leer.nextDouble();
-                
+
                 Producto duplicado = productoDAO.obtener(id);
                 duplicado.setDescuento(nuevoValorDoub);
                 productoDAO.actualizar(duplicado);
@@ -106,37 +106,41 @@ public class ComportamientoAdmin implements IComportamiento {
             case 5: {
                 System.out.println("Digite el Inventario");
                 leer.nextLine();
-                        
+
                 nuevoValorDoub = leer.nextDouble();
-                
+
                 Producto duplicado = productoDAO.obtener(id);
-                duplicado.setInventario((int)nuevoValorDoub);
+                duplicado.setInventario((int) nuevoValorDoub);
                 productoDAO.actualizar(duplicado);
                 break;
             }
             case 6: {
                 System.out.println("Digite el nuevo nombre");
                 leer.nextLine();
-                        
+
                 String nuevoNombre = leer.nextLine();
-                
+
                 Producto duplicado = productoDAO.obtener(id);
                 duplicado.setNombre(nuevoNombre);
                 productoDAO.actualizar(duplicado);
                 break;
             }
             case 7: {
-               //TODO EDIT LISTA PROVEDORES...
+                //TODO EDIT LISTA PROVEDORES...
             }
         }
     }
 
-    public void eliminarProducto(String nombreProducto) {
-        //TODO     
+    public void eliminarProducto() {
+        System.out.println("Espere a que la lista de productos cargue por completo...");
+        productoDAO.obtenerProductos().forEach((a) -> System.out.println(a));
+        System.out.println("Seleccione el id del producto que desea eliminar:");
+        productoDAO.borrar(leer.nextInt());
     }
 
     public void verProductos() {
-        //TODO
+        System.out.println("Listado de productos:");
+        productoDAO.obtenerProductos().forEach((a) -> System.out.println(a));
     }
 
     public void verInventarioProducto(String codigoProducto) {
@@ -235,14 +239,30 @@ public class ComportamientoAdmin implements IComportamiento {
         }
     }
 
+    public void volverMenuMantProductos() {
+        leer.nextLine();
+        System.out.println("Presione:\n1. Volver al Menu de mantenimiento de productos. \n2. Volver al menu principal.");
+        switch (leer.nextInt()) {
+            case 1:
+                menuMantProductos();
+            case 2:
+                menuPrincipal();
+                break;
+            default:
+                System.out.println("Error: numero incorrecto. Volviendo al menu principal...");
+                menuPrincipal();
+                break;
+        }
+    }
+
     public void menuMantProductos() {
         System.out.print("OPCIONES DE PRODUCTO" + "\n"
                 + "1. Agregar Producto" + "\n"
                 + "2. Editar Producto" + "\n"
                 + "3. Eliminar Producto" + "\n"
-                + "4. Ver inventario mínimo" + "\n"
-                + "5. Ver Productos" + "\n"
-                + "6. Regresar" + "\n"
+                + "4. Ver Productos" + "\n"
+                //+ "5. Ver Productos" + "\n"
+                + "5. Menu Principal" + "\n"
                 + "Elija una opción:"
         );
 
@@ -250,21 +270,21 @@ public class ComportamientoAdmin implements IComportamiento {
         switch (opcion) {
             case 1:
                 agregarProducto();
+
+                volverMenuMantProductos();
                 break;
             case 2:
                 editarProducto();
                 break;
             case 3:
-                // elininarProducto();
+                eliminarProducto();
                 break;
             case 4:
-                //verInventarioProducto();
+                verProductos();
                 break;
             case 5:
-                // verProductos();
-                break;
-            case 6:
                 menuPrincipal();
+                break;
         }
     }
 
