@@ -1,23 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package edu.ulatina.diariofacil.model;
 
-/**
- *
- * @author blaken
- */
 public class Item {
     private int id;
-    private int idProducto;
+    private String nombreProducto;
     private int cantidad;
+    private double subtotal;
 
-    public Item(int id, int idProducto, int cantidad) {
+    public Item() {
+    }
+
+    public Item(int id, String nombreProducto, int cantidad, double subtotal) {
         this.id = id;
-        this.idProducto = idProducto;
+        this.nombreProducto = nombreProducto;
         this.cantidad = cantidad;
+        this.subtotal = subtotal;
     }
 
     public int getId() {
@@ -28,12 +25,12 @@ public class Item {
         this.id = id;
     }
 
-    public int getIdProducto() {
-        return idProducto;
+    public String getNombreProducto() {
+        return nombreProducto;
     }
 
-    public void setIdProducto(int idProducto) {
-        this.idProducto = idProducto;
+    public void setNombreProducto(String nombreProducto) {
+        this.nombreProducto = nombreProducto;
     }
 
     public int getCantidad() {
@@ -43,6 +40,26 @@ public class Item {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
+
+    public double getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(double subtotal) {
+        this.subtotal = subtotal;
+    }
+
+    @Override
+    public String toString() {
+        return  "------------------Item------------------"
+                + "Id: "+ id 
+                + "\nProducto: "+ nombreProducto 
+                + "\nCantidad: "+ cantidad 
+                + "\nSubtotal: " + subtotal
+                +"----------------------------------------";
+    }
+    
+    
     
     
 }

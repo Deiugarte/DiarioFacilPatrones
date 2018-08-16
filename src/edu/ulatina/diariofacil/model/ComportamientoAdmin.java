@@ -3,13 +3,12 @@ package edu.ulatina.diariofacil.model;
 import edu.ulatina.diariofacil.dao.ProductoDAO;
 import edu.ulatina.diariofacil.dao.ProvedorDAO;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 import static jdk.nashorn.tools.ShellFunctions.input;
 
 public class ComportamientoAdmin implements IComportamiento {
-
+    Memento mementoMovimientos= new Memento();
     ProvedorDAO provedorDAO = new ProvedorDAO();
     ProductoDAO productoDAO = new ProductoDAO();
     Scanner leer = new Scanner(System.in);
@@ -43,30 +42,33 @@ public class ComportamientoAdmin implements IComportamiento {
             System.out.println("Desea agregar mas provedores(S/N):");
             k = leer.next().toLowerCase().equals("s");
         }
-
+        System.out.println("Agregando Producto "+nombre);
         productoDAO.crear(new Producto(nombre, descripcion, precio, descuento, inventario, lp));
+        mementoMovimientos.MementoAgregadoProducto(new Producto(nombre, descripcion, precio, descuento, inventario, lp));
     }
 
     public void editarProducto() {
         //Inicializar lista de provedores registrados:
         List<Provedor> listProvedores = provedorDAO.obtenerTodos();
-        List<Producto> listProductos = productoDAO.obtenerProductosSinPromo();
+        List<Producto> listProductos = productoDAO.obtenerProductos();
 
         System.out.println("--- * Editar Productos * ---\n");
-        productoDAO.obtenerProductosSinPromo().forEach((a) -> System.out.println(a));
+        productoDAO.obtenerProductos().forEach((a) -> System.out.println(a));
         System.out.println("Digite el codigo del producto a editar: ");
         int id = leer.nextInt();
 
         System.out.println("Que desea editar?\n1. Nombre.\n2. Descripcion."
-                + "\n3. Precio.\n4. Descuento.\n5. Inventario.\n6. Salir al menu principal.");
-        //TODO :   + "\n6. Lista de Provedores.\n");
+                + "\n3. Precio.\n4. Descuento.\n5. Inventario.");
+                //TODO :   + "\n6. Lista de Provedores.\n");
         String nuevoValorStr;
         double nuevoValorDoub;
 
         switch (leer.nextInt()) {
             case 1: {
                 System.out.println("Digite el nuevo Nombre");
+                leer.nextLine();                        
                 nuevoValorStr = leer.nextLine();
+                
                 Producto duplicado = productoDAO.obtener(id);
                 duplicado.setNombre(nuevoValorStr);
                 productoDAO.actualizar(duplicado);
@@ -74,8 +76,9 @@ public class ComportamientoAdmin implements IComportamiento {
             }
             case 2: {
                 System.out.println("Digite la nueva Descripcion");
+                leer.nextLine();                        
                 nuevoValorStr = leer.nextLine();
-
+                
                 Producto duplicado = productoDAO.obtener(id);
                 duplicado.setDescripcion(nuevoValorStr);
                 productoDAO.actualizar(duplicado);
@@ -83,7 +86,9 @@ public class ComportamientoAdmin implements IComportamiento {
             }
             case 3: {
                 System.out.println("Digite el nuevo Precio");
+                leer.nextLine();                        
                 nuevoValorDoub = leer.nextDouble();
+                
                 Producto duplicado = productoDAO.obtener(id);
                 duplicado.setPrecio(nuevoValorDoub);
                 productoDAO.actualizar(duplicado);
@@ -91,7 +96,9 @@ public class ComportamientoAdmin implements IComportamiento {
             }
             case 4: {
                 System.out.println("Digite el nuevo Descuento");
+                leer.nextLine();                        
                 nuevoValorDoub = leer.nextDouble();
+                
                 Producto duplicado = productoDAO.obtener(id);
                 duplicado.setDescuento(nuevoValorDoub);
                 productoDAO.actualizar(duplicado);
@@ -99,41 +106,60 @@ public class ComportamientoAdmin implements IComportamiento {
             }
             case 5: {
                 System.out.println("Digite el Inventario");
+                leer.nextLine();
+                        
                 nuevoValorDoub = leer.nextDouble();
+                
                 Producto duplicado = productoDAO.obtener(id);
-                duplicado.setInventario((int) nuevoValorDoub);
+                duplicado.setInventario((int)nuevoValorDoub);
                 productoDAO.actualizar(duplicado);
                 break;
             }
             case 6: {
-                menuPrincipal();
+                System.out.println("Digite el nuevo nombre");
+                leer.nextLine();
+                        
+                String nuevoNombre = leer.nextLine();
+                
+                Producto duplicado = productoDAO.obtener(id);
+                duplicado.setNombre(nuevoNombre);
+                productoDAO.actualizar(duplicado);
                 break;
             }
             case 7: {
-                //TODO EDIT LISTA PROVEDORES...
-                break;
+               //TODO EDIT LISTA PROVEDORES...
             }
         }
     }
+
     public void eliminarProducto() {
-        System.out.println("Espere a que la lista de productos cargue por completo...");
-        productoDAO.obtenerTodosLosProductos().forEach((a) -> System.out.println(a));
-        System.out.println("Seleccione el id del producto que desea eliminar:");
-        productoDAO.borrar(leer.nextInt());
+        int idProductoAEliminar;
+        Producto productoAEliminar=null;
+        List<Producto> lstProductos=new ArrayList<>();
+        lstProductos=productoDAO.obtenerProductos();
+        for (Producto p : lstProductos) {
+            System.out.println("Id: "+p.getId()+"\nNombre: "+p.getNombre()+"\nDescripcion: "+p.getDescripcion());
+        }
+        System.out.println("Ingrese el id del producto a eliminar.");
+        idProductoAEliminar=leer.nextInt();
+        for (Producto p : lstProductos) {
+            
+            if(p.getId()==idProductoAEliminar){
+                productoAEliminar=p;
+            }
+        }
+        if(productoAEliminar!=null){
+            mementoMovimientos.MementoEliminadoProducto(productoAEliminar);
+            System.out.println("Eliminando "+productoAEliminar.getNombre()+"con id "+productoAEliminar.getId());
+        productoDAO.borrar(productoAEliminar);
+        }else{
+            System.out.println("No se pudo eliminar su producto.");
+        }
+        menuMantProductos();
     }
 
-    public void verTodosLosProductos() {
-        System.out.println("Listado de Promociones y Productos:");
-        productoDAO.obtenerTodosLosProductos().forEach((a) -> System.out.println(a));
-    }
-    public void verProductosConPromo() {
-        System.out.println("Listado de Promociones:");
-        productoDAO.obtenerProductosConPromo().forEach((a) -> System.out.println(a));
-    }
-    
-        public void verProductosSinPromo() {
-        System.out.println("Listado de Productos SIN Promocion:");
-        productoDAO.obtenerProductosSinPromo().forEach((a) -> System.out.println(a));
+    public void verProductos() {
+        //TODO
     }
 
     public void verInventarioProducto(String codigoProducto) {
@@ -176,51 +202,26 @@ public class ComportamientoAdmin implements IComportamiento {
 
     //Acciones sobre Provedores.
     public void agregarProvedor() {
-        List<Provedor> listProvedores = provedorDAO.obtenerTodos();
-        System.out.println("--- * Agregar Provedor * ---\n"
-                + "Digite el nombre del Provedor: ");
-        leer.nextLine();
-        String nombre = leer.nextLine();
+        ProvedorDAO provedor = new ProvedorDAO();
 
-        System.out.println("Digite el correo del Provedor: ");
-        String correo = leer.nextLine();
-        provedorDAO.crear(nombre, correo);
     }
 
     public void editarProvedor() {
-        provedorDAO.obtenerTodos().forEach((a) -> System.out.println(a));
-        System.out.println("--- * Editarr Provedor * ---\n"
-                + "Digite el ID del Provedor a editar: ");
-        int id = leer.nextInt();
-
-        Provedor provedor = provedorDAO.obtener(id);
-
-        System.out.println("Digite:\n1. Editar nombre del provedor.\n"
-                + "2. Editar correo del provedor.");
-        int opc = leer.nextInt();
-        if (opc == 1) {
-            System.out.println("Digite el nuevo nombre: ");
-            leer.nextLine();
-            provedor.setNombre(leer.nextLine());
-        } else if (opc == 2) {
-            System.out.println("Digite el nuevo correo: ");
-            leer.nextLine();
-            provedor.setCorreo(leer.nextLine());
-        }
-        provedorDAO.actualizar(provedor);
+        //TODO
     }
 
     public void eliminarProvedor() {
-        System.out.println("Espere a que la lista de provedores cargue por completo...");
-        provedorDAO.obtenerTodos().forEach((a) -> System.out.println(a));
-        System.out.print("Seleccione el id del provedor que desea eliminar:");
-        provedorDAO.borrar(leer.nextInt());
+        //TODO
     }
 
     public void verProvedores() {
-        System.out.println("Listado de Provedores:");
-        provedorDAO.obtenerTodos().forEach((a) -> System.out.println(a));
+        //TODO
     }
+
+    public void solicitarPedido() {
+        //TODO
+    }
+
     public void verPedidos() {
         //TODO
     }
@@ -232,8 +233,9 @@ public class ComportamientoAdmin implements IComportamiento {
                 "\n--- * Menu Principal * ---\n"
                 + "1. Manteniento de Productos\n"
                 + "2. Mantenimiento de Proveedores\n"
-                + "3. Mantenimiento de Combo\n"
-                + "4. Salir.\n\n------\n"
+                + "3. Mantenimiento de Promocion\n"
+                + "4. Mantenimiento de Combo\n"
+                + "5. Salir.\n\n------\n"
                 + "Elija una opcion:\n");
         Scanner leer = new Scanner(System.in);
         int opcion = leer.nextInt();
@@ -242,44 +244,66 @@ public class ComportamientoAdmin implements IComportamiento {
                 menuMantProductos();
                 break;
             case 2:
-                menuMantProvedores();
+                menuMantProveedores();
                 break;
             case 3:
+                menuMantPromociones();
+                break;
+            case 4:
                 menuMantCombos();
                 break;
-            case 4:                
+            case 5:
                 System.out.println("\nSaliendo...\n");
-                return;
-        }
-    }
-
-    public void volverMenuMantProductos() {
-        leer.nextLine();
-        System.out.println("Presione:\n1. Volver al Menu de mantenimiento de productos. \n2. Volver al menu principal.");
-        switch (leer.nextInt()) {
-            case 1:
-                menuMantProductos();
-                break;
-            case 2:
-                menuPrincipal();
-                break;
-            default:
-                System.out.println("Error: numero incorrecto. Volviendo al menu principal...");
-                menuPrincipal();
                 break;
         }
     }
-
-    //Menu productos listo.
+    public void verMovimientosProductos(){
+        int aux=1;
+        System.out.println("==================================Productos agregados recientemente================================");
+        for (Producto producto : mementoMovimientos.getLstMovimientosAgregadosProducto()) {
+            System.out.println("Movimiento#"+aux);
+            System.out.println(producto);
+            aux=aux+1;
+        }
+        aux=1;
+        System.out.println("==================================Productos eliminados recientemente================================");
+        for (Producto producto : mementoMovimientos.getLstMovimientosEliminadosProducto()) {
+            System.out.println("Movimiento#"+aux);
+            System.out.println(producto);
+            aux=aux+1;
+        }
+        int opc;
+        System.out.println("Deseas deshacer algun movimiento(Si=1/No=2)");
+        opc=leer.nextInt();
+        if(opc==1){
+            System.out.println("Desea deshacer un agregado(1) o un eliminado(2)");
+            opc=leer.nextInt();
+            if(opc==1){
+                System.out.println("Ingrese el numero de movimiento referente en la lista de agregados");
+                aux=leer.nextInt()-1;
+                Producto productoRecuperadoAgregado=mementoMovimientos.getLstMovimientosAgregadosProducto().get(aux);
+                mementoMovimientos.getLstMovimientosAgregadosProducto().remove(aux);
+                productoDAO.crear(productoRecuperadoAgregado);
+            }else if(opc==2){
+                System.out.println("Ingrese el numero de movimiento referente en la lista de eliminados");
+                aux=leer.nextInt()-1;
+                Producto productoRecuperadoEliminado=mementoMovimientos.getLstMovimientosEliminadosProducto().get(aux);
+                mementoMovimientos.getLstMovimientosEliminadosProducto().remove(aux);
+                productoDAO.crear(productoRecuperadoEliminado);
+            }
+        }
+        menuMantProductos();
+    }
     public void menuMantProductos() {
-        System.out.print("OPCIONES DE PRODUCTO\n"
-                + "1. Agregar Producto\n"
-                + "2. Editar Producto\n"
-                + "3. Eliminar Producto\n"
-                + "4. Ver Todos los Productos\n"
-                + "5. Ver Productos SIN Promocion.\n"
-                + "6. Ver Productos CON Promocion.\n"
-                + "7. Menu Principal" + "\n"
+        Memento mementoProducto=new Memento();
+        System.out.print("OPCIONES DE PRODUCTO" + "\n"
+                + "1. Agregar Producto" + "\n"
+                + "2. Editar Producto" + "\n"
+                + "3. Eliminar Producto" + "\n"
+                + "4. Ver inventario mínimo" + "\n"
+                + "5. Ver Productos" + "\n"
+                + "6. Ver Movimientos hechos" + "\n"
+                + "7. Regresar" + "\n"
                 + "Elija una opción:"
         );
 
@@ -287,87 +311,54 @@ public class ComportamientoAdmin implements IComportamiento {
         switch (opcion) {
             case 1:
                 agregarProducto();
-                volverMenuMantProductos();
                 break;
             case 2:
                 editarProducto();
-                volverMenuMantProductos();
                 break;
             case 3:
                 eliminarProducto();
-                volverMenuMantProductos();
                 break;
             case 4:
-                verTodosLosProductos();
-                volverMenuMantProductos();
+                //verInventarioProducto();
                 break;
             case 5:
-                verProductosSinPromo();
-                volverMenuMantProductos();
+                // verProductos();
                 break;
             case 6:
-                verProductosConPromo();
-                volverMenuMantProductos();
+                verMovimientosProductos();
                 break;
             case 7:
                 menuPrincipal();
-                break;
+                break;    
         }
     }
-    
-    
 
-    public void menuMantProvedores() {
-        System.out.print("Mantenimiento de Provedores\n"
-                + "1. Agregar Proveedor\n"
-                + "2. Editar Proveedor\n"
-                + "3. Eliminar Proveedor\n"
-                + "4. Ver Proveedores\n"
-                + "5. Ver Pedidos\n" // TODO
-                + "6. Regresar\n"
-                + "Digite una opcion:\n");
+    public void menuMantPromociones() {
+        System.out.println("OPCIONES DE PROMOCION" + "\n"
+                + "1.Agregar Promoción" + "\n"
+                + "2.Eliminar Promoción" + "\n"
+                + "3.Ver Promociones" + "\n"
+                + "4. Regresar" + "\n"
+                + "Digite una opcion: " + "\n"
+        );
+
         int opcion = leer.nextInt();
+
         switch (opcion) {
             case 1:
-                agregarProvedor();
-                volverMenuMantProvedores();
+                // agregarPromocion();
                 break;
             case 2:
-                editarProvedor();
-                volverMenuMantProvedores();
+                //eliminarPromocion();
                 break;
             case 3:
-                eliminarProvedor();
-                volverMenuMantProvedores();
+                //verPromociones();
                 break;
             case 4:
-            verProvedores();
-            volverMenuMantProvedores();
-            case 5:
-            // TODO TODO verPedidos();
-            case 6:
-            menuPrincipal();
-            break;
-                    
-        }
-    }
-
-        public void volverMenuMantProvedores() {
-        leer.nextLine();
-        System.out.println("Presione:\n1. Volver al Menu de mantenimiento de Provedores. \n2. Volver al menu principal.");
-        switch (leer.nextInt()) {
-            case 1:
-                menuMantProvedores();
-            case 2:
-                menuPrincipal();
-                break;
-            default:
-                System.out.println("Error: numero incorrecto. Volviendo al menu principal...");
-                menuPrincipal();
+                // menuAdmin();
                 break;
         }
     }
-   
 
     public void menuMantCombos() {
         System.out.print("OPCIONES DE COMBO" + "\n"
@@ -388,8 +379,40 @@ public class ComportamientoAdmin implements IComportamiento {
             case 3:
             //verCombos();
             case 4:
-                menuPrincipal();
+            //menuAdmin();
         }
     }
 
+    public void menuMantProveedores() {
+        System.out.print("Mantenimiento de Provedores\n"
+                + "1. Agregar Proveedor\n"
+                + "2. Editar Proveedor\n"
+                + "3. Eliminar Proveedor\n"
+                + "4. Solicitar pedido\n"
+                + "5. Ver Proveedores\n"
+                + "6. Ver Pedidos\n"
+                + "7.Regresar\n"
+                + "Digite una opcion:\n");
+        int opcion = leer.nextInt();
+        switch (opcion) {
+            case 1:
+                // agregarProveedor();
+                break;
+            case 2:
+                // editarProveedor();
+                break;
+            case 3:
+                //eliminarProveedor();
+                break;
+            case 4:
+                // solicitarPedido();
+                break;
+            case 5:
+            // verProveedores();
+            case 6:
+            // verPedidos();
+            case 7:
+            // menuAdmin();
+        }
+    }
 }

@@ -20,6 +20,10 @@ public class Orden {
     private Date fecha;
     private List<Item> items = new ArrayList();
 
+    public Orden() {
+    }
+
+    
     public Orden(int id, Usuario usuario, int descuento, Date fecha) {
         this.id = id;
         this.usuario = usuario;
@@ -65,6 +69,17 @@ public class Orden {
 
     public void setItems(List<Item> items) {
         this.items = items;
+    }
+
+    @Override
+    public String toString() {
+        return  "=============================================Orden============================================="+
+                "\nId: " + id 
+                + "\nUsuario: " + usuario 
+                + "\nDescuento:" + descuento 
+                + "%\nFecha=" + fecha 
+                + "\nItems=" + items
+                +"===============================================================================================";
     }
 
     
