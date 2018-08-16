@@ -4,10 +4,15 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/madrizdm/Documents/ULatina/Patrones/Proyecto/DiarioFacilPatrones/src/edu/ulatina/diariofacil/dao/ProductoDAO.java</file>
+            <file>file:/C:/Users/madrizdm/Documents/ULatina/Patrones/Proyecto/DiarioFacilPatrones/src/edu/ulatina/diariofacil/model/IComportamiento.java</file>
             <file>file:/C:/Users/madrizdm/Documents/ULatina/Patrones/Proyecto/DiarioFacilPatrones/src/edu/ulatina/diariofacil/patrones/tester.java</file>
             <file>file:/C:/Users/madrizdm/Documents/ULatina/Patrones/Proyecto/DiarioFacilPatrones/src/edu/ulatina/diariofacil/model/ComportamientoAdmin.java</file>
+            <file>file:/C:/Users/madrizdm/Documents/ULatina/Patrones/Proyecto/DiarioFacilPatrones/src/edu/ulatina/diariofacil/dao/ProvedorDAO.java</file>
             <file>file:/C:/Users/madrizdm/Documents/ULatina/Patrones/Proyecto/DiarioFacilPatrones/src/edu/ulatina/diariofacil/idao/IProductoDAO.java</file>
+            <file>file:/C:/Users/madrizdm/Documents/ULatina/Patrones/Proyecto/DiarioFacilPatrones/src/edu/ulatina/diariofacil/model/Usuario.java</file>
+            <file>file:/C:/Users/madrizdm/Documents/ULatina/Patrones/Proyecto/DiarioFacilPatrones/src/edu/ulatina/diariofacil/model/Combo.java</file>
             <file>file:/C:/Users/madrizdm/Documents/ULatina/Patrones/Proyecto/DiarioFacilPatrones/src/edu/ulatina/diariofacil/model/Producto.java</file>
+            <file>file:/C:/Users/madrizdm/Documents/ULatina/Patrones/Proyecto/DiarioFacilPatrones/src/edu/ulatina/diariofacil/idao/IProvedorDAO.java</file>
         </group>
     </open-files>
 </project-private>

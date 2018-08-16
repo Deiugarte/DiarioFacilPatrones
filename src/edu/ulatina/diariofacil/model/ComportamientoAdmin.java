@@ -58,7 +58,7 @@ public class ComportamientoAdmin implements IComportamiento {
         int id = leer.nextInt();
 
         System.out.println("Que desea editar?\n1. Nombre.\n2. Descripcion."
-                + "\n3. Precio.\n4. Descuento.\n5. Inventario.");
+                + "\n3. Precio.\n4. Descuento.\n5. Inventario.\n6. Salir al menu principal.");
         //TODO :   + "\n6. Lista de Provedores.\n");
         String nuevoValorStr;
         double nuevoValorDoub;
@@ -66,9 +66,7 @@ public class ComportamientoAdmin implements IComportamiento {
         switch (leer.nextInt()) {
             case 1: {
                 System.out.println("Digite el nuevo Nombre");
-                leer.nextLine();
                 nuevoValorStr = leer.nextLine();
-
                 Producto duplicado = productoDAO.obtener(id);
                 duplicado.setNombre(nuevoValorStr);
                 productoDAO.actualizar(duplicado);
@@ -76,7 +74,6 @@ public class ComportamientoAdmin implements IComportamiento {
             }
             case 2: {
                 System.out.println("Digite la nueva Descripcion");
-                leer.nextLine();
                 nuevoValorStr = leer.nextLine();
 
                 Producto duplicado = productoDAO.obtener(id);
@@ -86,9 +83,7 @@ public class ComportamientoAdmin implements IComportamiento {
             }
             case 3: {
                 System.out.println("Digite el nuevo Precio");
-                leer.nextLine();
                 nuevoValorDoub = leer.nextDouble();
-
                 Producto duplicado = productoDAO.obtener(id);
                 duplicado.setPrecio(nuevoValorDoub);
                 productoDAO.actualizar(duplicado);
@@ -96,9 +91,7 @@ public class ComportamientoAdmin implements IComportamiento {
             }
             case 4: {
                 System.out.println("Digite el nuevo Descuento");
-                leer.nextLine();
                 nuevoValorDoub = leer.nextDouble();
-
                 Producto duplicado = productoDAO.obtener(id);
                 duplicado.setDescuento(nuevoValorDoub);
                 productoDAO.actualizar(duplicado);
@@ -106,32 +99,22 @@ public class ComportamientoAdmin implements IComportamiento {
             }
             case 5: {
                 System.out.println("Digite el Inventario");
-                leer.nextLine();
-
                 nuevoValorDoub = leer.nextDouble();
-
                 Producto duplicado = productoDAO.obtener(id);
                 duplicado.setInventario((int) nuevoValorDoub);
                 productoDAO.actualizar(duplicado);
                 break;
             }
             case 6: {
-                System.out.println("Digite el nuevo nombre");
-                leer.nextLine();
-
-                String nuevoNombre = leer.nextLine();
-
-                Producto duplicado = productoDAO.obtener(id);
-                duplicado.setNombre(nuevoNombre);
-                productoDAO.actualizar(duplicado);
+                menuPrincipal();
                 break;
             }
             case 7: {
                 //TODO EDIT LISTA PROVEDORES...
+                break;
             }
         }
     }
-
     public void eliminarProducto() {
         System.out.println("Espere a que la lista de productos cargue por completo...");
         productoDAO.obtenerProductos().forEach((a) -> System.out.println(a));
@@ -219,17 +202,16 @@ public class ComportamientoAdmin implements IComportamiento {
     }
 
     public void eliminarProvedor() {
-        //TODO
+        System.out.println("Espere a que la lista de provedores cargue por completo...");
+        provedorDAO.obtenerTodos().forEach((a) -> System.out.println(a));
+        System.out.print("Seleccione el id del provedor que desea eliminar:");
+        provedorDAO.borrar(leer.nextInt());
     }
 
     public void verProvedores() {
-        //TODO
+        System.out.println("Listado de Provedores:");
+        provedorDAO.obtenerTodos().forEach((a) -> System.out.println(a));
     }
-
-    public void solicitarPedido() {
-        //TODO
-    }
-
     public void verPedidos() {
         //TODO
     }
@@ -252,7 +234,7 @@ public class ComportamientoAdmin implements IComportamiento {
                 menuMantProductos();
                 break;
             case 2:
-                menuMantProveedores();
+                menuMantProvedores();
                 break;
             case 3:
                 menuMantPromociones();
@@ -298,7 +280,6 @@ public class ComportamientoAdmin implements IComportamiento {
         switch (opcion) {
             case 1:
                 agregarProducto();
-
                 volverMenuMantProductos();
                 break;
             case 2:
@@ -318,40 +299,59 @@ public class ComportamientoAdmin implements IComportamiento {
                 break;
         }
     }
+    
+    
 
-    public void menuMantProveedores() {
+    public void menuMantProvedores() {
         System.out.print("Mantenimiento de Provedores\n"
                 + "1. Agregar Proveedor\n"
                 + "2. Editar Proveedor\n"
                 + "3. Eliminar Proveedor\n"
-                + "4. Solicitar pedido\n"
-                + "5. Ver Proveedores\n"
-                + "6. Ver Pedidos\n"
-                + "7.Regresar\n"
+                + "4. Ver Proveedores\n"
+                + "5. Ver Pedidos\n" // TODO
+                + "6. Regresar\n"
                 + "Digite una opcion:\n");
         int opcion = leer.nextInt();
         switch (opcion) {
             case 1:
                 agregarProvedor();
+                volverMenuMantProvedores();
                 break;
             case 2:
                 editarProvedor();
+                volverMenuMantProvedores();
                 break;
             case 3:
-                //eliminarProveedor();
+                eliminarProvedor();
+                volverMenuMantProvedores();
                 break;
             case 4:
-                // solicitarPedido();
-                break;
+            verProvedores();
+            volverMenuMantProvedores();
             case 5:
-            // verProveedores();
+            // TODO TODO verPedidos();
             case 6:
-            // verPedidos();
-            case 7:
-            // menuAdmin();
+            menuPrincipal();
+            break;
+                    
         }
     }
 
+        public void volverMenuMantProvedores() {
+        leer.nextLine();
+        System.out.println("Presione:\n1. Volver al Menu de mantenimiento de Provedores. \n2. Volver al menu principal.");
+        switch (leer.nextInt()) {
+            case 1:
+                menuMantProvedores();
+            case 2:
+                menuPrincipal();
+                break;
+            default:
+                System.out.println("Error: numero incorrecto. Volviendo al menu principal...");
+                menuPrincipal();
+                break;
+        }
+    }
     public void menuMantPromociones() {
         System.out.println("OPCIONES DE PROMOCION" + "\n"
                 + "1.Agregar Promoción" + "\n"
