@@ -26,8 +26,60 @@ public class ProductoDAO implements IProductoDAO {
     private final Conector conectorJDBC = new Conector();
     private static final Logger LOG = LogManager.getLogger(ProductoDAO.class.getName());
 
+   
+    public List<Producto> obtenerProductosConPromo() {
+        Connection conn = conectorJDBC.conectar();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Producto> resultado = new ArrayList<>();
+        try {
+            ps = conn.prepareStatement("Select id, nombre, descripcion, precio, descuento, inventario from Productos where descuento > 0");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String nombre = rs.getString("nombre");
+                String descripcion = rs.getString("descripcion");
+                int precio = rs.getInt("precio");
+                int descuento = rs.getInt("descuento");
+                int inventario = rs.getInt("inventario");
+                resultado.add(new Producto(id, nombre, descripcion, precio, descuento, inventario));
+            }
+
+        } catch (SQLException ex) {
+            LOG.error("No se pudo obtener el producto", ex);
+        } finally {
+            conectorJDBC.cerrarConexion(conn, ps, rs);
+        }
+        return resultado;
+    }
     @Override
-    public List<Producto> obtenerProductos() {
+    public List<Producto> obtenerProductosSinPromo() {
+        Connection conn = conectorJDBC.conectar();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Producto> resultado = new ArrayList<>();
+        try {
+            ps = conn.prepareStatement("Select id, nombre, descripcion, precio, descuento, inventario from Productos where descuento = 0");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String nombre = rs.getString("nombre");
+                String descripcion = rs.getString("descripcion");
+                int precio = rs.getInt("precio");
+                int descuento = rs.getInt("descuento");
+                int inventario = rs.getInt("inventario");
+                resultado.add(new Producto(id, nombre, descripcion, precio, descuento, inventario));
+            }
+
+        } catch (SQLException ex) {
+            LOG.error("No se pudo obtener el producto", ex);
+        } finally {
+            conectorJDBC.cerrarConexion(conn, ps, rs);
+        }
+        return resultado;
+    }
+ 
+    public List<Producto> obtenerTodosLosProductos() {
         Connection conn = conectorJDBC.conectar();
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -52,7 +104,6 @@ public class ProductoDAO implements IProductoDAO {
         }
         return resultado;
     }
-
     @Override
     public void crear(Producto producto) {
         Connection conn = conectorJDBC.conectar();
