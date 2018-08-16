@@ -17,41 +17,43 @@ import edu.ulatina.diariofacil.idao.IProvedorDAO;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ *
+ * @author blaken
+ */
 public class ProvedorDAO implements IProvedorDAO {
     
     private final Conector conectorJDBC = new Conector();
     private static final Logger LOG = LogManager.getLogger(UsuarioDAO.class.getName());
 
     @Override
-    public void crear(String nombre, String correo) {
+    public void crear(Provedor proveedor) {
         Connection conn = conectorJDBC.conectar();
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement("Insert Into Proveedores (nombre, correo)  values (?,?)");
-            ps.setString(1, nombre);
-            ps.setString(2, correo);
+            ps.setString(1, proveedor.getNombre());
+            ps.setString(2, proveedor.getCorreo());
             ps.executeUpdate();
-            System.out.println("Exito al crear!");
+
         } catch (SQLException ex) {
-            LOG.error("No se puedo realizar la insercion del proveedor: ", ex);
+            LOG.error("No se puedo realizar la insercion del proveedor: " + proveedor, ex);
         } finally {
             conectorJDBC.cerrarConexion(conn, ps, null);
         }
     }
 
     @Override
-    public void borrar(int id) {
+    public void borrar(Provedor proveedor) {
         Connection conn = conectorJDBC.conectar();
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement("Delete from Proveedores Where id=?");
-            ps.setInt(1, id);
+            ps.setInt(1, proveedor.getId());
             ps.executeUpdate();
-            System.out.println("Exito al borrar!");
 
         } catch (SQLException ex) {
-            LOG.error("No se puedo borrar el proveedor: ", ex);
+            LOG.error("No se puedo borrar el proveedor: " + proveedor, ex);
         } finally {
             conectorJDBC.cerrarConexion(conn, ps, null);
        }
@@ -115,10 +117,9 @@ public class ProvedorDAO implements IProvedorDAO {
             ps.setString(2, proveedor.getCorreo());
             ps.setInt(3, proveedor.getId());
             ps.executeUpdate();
-            System.out.println("Exito al modificar!");
 
         } catch (SQLException ex) {
-            LOG.error("No se puedo realizar la edicion: ", ex);
+            LOG.error("No se puedo realizar la insercion del proveedor: " + proveedor, ex);
         } finally {
             conectorJDBC.cerrarConexion(conn, ps, null);
         }
