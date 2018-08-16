@@ -32,7 +32,7 @@ public class ProvedorDAO implements IProvedorDAO {
             ps.setString(1, nombre);
             ps.setString(2, correo);
             ps.executeUpdate();
-
+            System.out.println("Exito al crear!");
         } catch (SQLException ex) {
             LOG.error("No se puedo realizar la insercion del proveedor: ", ex);
         } finally {
@@ -48,6 +48,7 @@ public class ProvedorDAO implements IProvedorDAO {
             ps = conn.prepareStatement("Delete from Proveedores Where id=?");
             ps.setInt(1, id);
             ps.executeUpdate();
+            System.out.println("Exito al borrar!");
 
         } catch (SQLException ex) {
             LOG.error("No se puedo borrar el proveedor: ", ex);
@@ -114,9 +115,10 @@ public class ProvedorDAO implements IProvedorDAO {
             ps.setString(2, proveedor.getCorreo());
             ps.setInt(3, proveedor.getId());
             ps.executeUpdate();
+            System.out.println("Exito al modificar!");
 
         } catch (SQLException ex) {
-            LOG.error("No se puedo realizar la insercion del proveedor: " + proveedor, ex);
+            LOG.error("No se puedo realizar la edicion: ", ex);
         } finally {
             conectorJDBC.cerrarConexion(conn, ps, null);
         }
