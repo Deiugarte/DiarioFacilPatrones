@@ -50,10 +50,10 @@ public class ComportamientoAdmin implements IComportamiento {
     public void editarProducto() {
         //Inicializar lista de provedores registrados:
         List<Provedor> listProvedores = provedorDAO.obtenerTodos();
-        List<Producto> listProductos = productoDAO.obtenerProductos();
+        List<Producto> listProductos = productoDAO.obtenerProductosSinPromo();
 
         System.out.println("--- * Editar Productos * ---\n");
-        productoDAO.obtenerProductos().forEach((a) -> System.out.println(a));
+        productoDAO.obtenerProductosSinPromo().forEach((a) -> System.out.println(a));
         System.out.println("Digite el codigo del producto a editar: ");
         int id = leer.nextInt();
 
@@ -117,14 +117,23 @@ public class ComportamientoAdmin implements IComportamiento {
     }
     public void eliminarProducto() {
         System.out.println("Espere a que la lista de productos cargue por completo...");
-        productoDAO.obtenerProductos().forEach((a) -> System.out.println(a));
+        productoDAO.obtenerTodosLosProductos().forEach((a) -> System.out.println(a));
         System.out.println("Seleccione el id del producto que desea eliminar:");
         productoDAO.borrar(leer.nextInt());
     }
 
-    public void verProductos() {
-        System.out.println("Listado de productos:");
-        productoDAO.obtenerProductos().forEach((a) -> System.out.println(a));
+    public void verTodosLosProductos() {
+        System.out.println("Listado de Promociones y Productos:");
+        productoDAO.obtenerTodosLosProductos().forEach((a) -> System.out.println(a));
+    }
+    public void verProductosConPromo() {
+        System.out.println("Listado de Promociones:");
+        productoDAO.obtenerProductosConPromo().forEach((a) -> System.out.println(a));
+    }
+    
+        public void verProductosSinPromo() {
+        System.out.println("Listado de Productos SIN Promocion:");
+        productoDAO.obtenerProductosSinPromo().forEach((a) -> System.out.println(a));
     }
 
     public void verInventarioProducto(String codigoProducto) {
@@ -223,9 +232,8 @@ public class ComportamientoAdmin implements IComportamiento {
                 "\n--- * Menu Principal * ---\n"
                 + "1. Manteniento de Productos\n"
                 + "2. Mantenimiento de Proveedores\n"
-                + "3. Mantenimiento de Promocion\n"
-                + "4. Mantenimiento de Combo\n"
-                + "5. Salir.\n\n------\n"
+                + "3. Mantenimiento de Combo\n"
+                + "4. Salir.\n\n------\n"
                 + "Elija una opcion:\n");
         Scanner leer = new Scanner(System.in);
         int opcion = leer.nextInt();
@@ -237,14 +245,11 @@ public class ComportamientoAdmin implements IComportamiento {
                 menuMantProvedores();
                 break;
             case 3:
-                menuMantPromociones();
-                break;
-            case 4:
                 menuMantCombos();
                 break;
-            case 5:
+            case 4:                
                 System.out.println("\nSaliendo...\n");
-                break;
+                return;
         }
     }
 
@@ -254,6 +259,7 @@ public class ComportamientoAdmin implements IComportamiento {
         switch (leer.nextInt()) {
             case 1:
                 menuMantProductos();
+                break;
             case 2:
                 menuPrincipal();
                 break;
@@ -266,13 +272,14 @@ public class ComportamientoAdmin implements IComportamiento {
 
     //Menu productos listo.
     public void menuMantProductos() {
-        System.out.print("OPCIONES DE PRODUCTO" + "\n"
-                + "1. Agregar Producto" + "\n"
-                + "2. Editar Producto" + "\n"
-                + "3. Eliminar Producto" + "\n"
-                + "4. Ver Productos" + "\n"
-                //+ "5. Ver Productos" + "\n"
-                + "5. Menu Principal" + "\n"
+        System.out.print("OPCIONES DE PRODUCTO\n"
+                + "1. Agregar Producto\n"
+                + "2. Editar Producto\n"
+                + "3. Eliminar Producto\n"
+                + "4. Ver Todos los Productos\n"
+                + "5. Ver Productos SIN Promocion.\n"
+                + "6. Ver Productos CON Promocion.\n"
+                + "7. Menu Principal" + "\n"
                 + "Elija una opción:"
         );
 
@@ -291,10 +298,18 @@ public class ComportamientoAdmin implements IComportamiento {
                 volverMenuMantProductos();
                 break;
             case 4:
-                verProductos();
+                verTodosLosProductos();
                 volverMenuMantProductos();
                 break;
             case 5:
+                verProductosSinPromo();
+                volverMenuMantProductos();
+                break;
+            case 6:
+                verProductosConPromo();
+                volverMenuMantProductos();
+                break;
+            case 7:
                 menuPrincipal();
                 break;
         }
@@ -352,32 +367,7 @@ public class ComportamientoAdmin implements IComportamiento {
                 break;
         }
     }
-    public void menuMantPromociones() {
-        System.out.println("OPCIONES DE PROMOCION" + "\n"
-                + "1.Agregar Promoción" + "\n"
-                + "2.Eliminar Promoción" + "\n"
-                + "3.Ver Promociones" + "\n"
-                + "4. Regresar" + "\n"
-                + "Digite una opcion: " + "\n"
-        );
-
-        int opcion = leer.nextInt();
-
-        switch (opcion) {
-            case 1:
-                // agregarPromocion();
-                break;
-            case 2:
-                //eliminarPromocion();
-                break;
-            case 3:
-                //verPromociones();
-                break;
-            case 4:
-                menuPrincipal();
-                break;
-        }
-    }
+   
 
     public void menuMantCombos() {
         System.out.print("OPCIONES DE COMBO" + "\n"
