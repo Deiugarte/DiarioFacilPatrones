@@ -13,9 +13,9 @@ import java.util.List;
  * @author blaken
  */
 public interface IProvedorDAO {
-    public void crear(Provedor proveedor);
-    public void borrar(Provedor proveedor);
-    public Provedor obtener(int ide);
+    public void crear(String nombre, String correo);
+    public void borrar(int id);
+    public Provedor obtener(int id);
     public List <Provedor> obtenerTodos();
     
     public void actualizar(Provedor proveedor);
