@@ -27,33 +27,33 @@ public class ProvedorDAO implements IProvedorDAO {
     private static final Logger LOG = LogManager.getLogger(UsuarioDAO.class.getName());
 
     @Override
-    public void crear(Provedor proveedor) {
+    public void crear(String nombre, String correo) {
         Connection conn = conectorJDBC.conectar();
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement("Insert Into Proveedores (nombre, correo)  values (?,?)");
-            ps.setString(1, proveedor.getNombre());
-            ps.setString(2, proveedor.getCorreo());
+            ps.setString(1, nombre);
+            ps.setString(2, correo);
             ps.executeUpdate();
 
         } catch (SQLException ex) {
-            LOG.error("No se puedo realizar la insercion del proveedor: " + proveedor, ex);
+            LOG.error("No se puedo realizar la insercion del proveedor: ", ex);
         } finally {
             conectorJDBC.cerrarConexion(conn, ps, null);
         }
     }
 
     @Override
-    public void borrar(Provedor proveedor) {
+    public void borrar(int id) {
         Connection conn = conectorJDBC.conectar();
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement("Delete from Proveedores Where id=?");
-            ps.setInt(1, proveedor.getId());
+            ps.setInt(1,id);
             ps.executeUpdate();
 
         } catch (SQLException ex) {
-            LOG.error("No se puedo borrar el proveedor: " + proveedor, ex);
+            LOG.error("No se puedo borrar el proveedo ", ex);
         } finally {
             conectorJDBC.cerrarConexion(conn, ps, null);
        }

@@ -60,7 +60,7 @@ public class ComportamientoCliente implements IComportamiento {
         int opc;
         int auxId, auxCantidad;
         Item nuevoItem = new Item();
-        List<Producto> lstProductos = productoDAO.obtenerProductos();
+        List<Producto> lstProductos = productoDAO.obtenerTodosLosProductos();
         for (Producto Producto : lstProductos) {
             System.out.println(Producto);
         }
