@@ -52,11 +52,11 @@ public class Item {
     @Override
     public String toString() {
         return  "------------------Item------------------"
-                + "Id: "+ id 
+                + "\nId: "+ id 
                 + "\nProducto: "+ nombreProducto 
                 + "\nCantidad: "+ cantidad 
                 + "\nSubtotal: " + subtotal
-                +"----------------------------------------";
+                +"\n----------------------------------------";
     }
     
     
