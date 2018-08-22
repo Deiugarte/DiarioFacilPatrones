@@ -26,11 +26,12 @@ public class ComportamientoCliente implements IComportamiento {
         System.out.println(
                 "\n================================Menu Principal==================================\n"
                 + "1. Ver productos.\n"
-                + "2. Ver combos.\n"
-                + "3. Ver carrito.\n"
-                + "4. Ver movimientos.\n"
-                + "5. Pagar orden.\n"
-                + "6. Salir.\n"
+                + "2. Ver promociones.\n"
+                + "3. Ver combos.\n"
+                + "4. Ver carrito.\n"
+                + "5. Ver movimientos.\n"
+                + "6. Pagar orden.\n"
+                + "7. Salir.\n"
                 + "================================================================================\n"
                 + "Elija una opcion:\n");
         int opcion = leer.nextInt();
@@ -39,18 +40,21 @@ public class ComportamientoCliente implements IComportamiento {
                 menuVerProductos();
                 break;
             case 2:
-                menuVercombos();
+                menuVerPromociones();
                 break;
             case 3:
-                menuVerItemsOrden();
+                menuVercombos();
                 break;
             case 4:
-                menuVerMovimientos();
+                menuVerItemsOrden();
                 break;
             case 5:
-                menuPagarOrden();
+                menuVerMovimientos();
                 break;
             case 6:
+                menuPagarOrden();
+                break;
+            case 7:
                 System.out.println("\nSaliendo...\n");
                 break;
         }
@@ -60,7 +64,7 @@ public class ComportamientoCliente implements IComportamiento {
         int opc;
         int auxId, auxCantidad;
         Item nuevoItem = new Item();
-        List<Producto> lstProductos = productoDAO.obtenerTodosLosProductos();
+        List<Producto> lstProductos = productoDAO.obtenerProductosSinPromo();
         for (Producto Producto : lstProductos) {
             System.out.println(Producto);
         }
@@ -79,6 +83,36 @@ public class ComportamientoCliente implements IComportamiento {
             if (nuevoItem.getNombreProducto() != null) {
                 mementoMovimientos.MementoAgregadoItem(nuevoItem);
                 System.out.println("Producto " + nuevoItem.getNombreProducto() + " agregado con exito");
+                lstItemsOrden.add(nuevoItem);
+            }
+        }
+
+        menuPrincipal();
+    }
+    public void menuVerPromociones() {
+        int opc;
+        int auxId, auxCantidad;
+        Item nuevoItem = new Item();
+        List<Producto> lstProductos = productoDAO.obtenerProductosConPromo();
+        for (Producto Producto : lstProductos) {
+            System.out.println(Producto);
+            
+        }
+        System.out.println("Deseas agregar una promocion(Si=1/No=2)");
+        opc = leer.nextInt();
+        if (opc == 1) {
+            System.out.println("Ingrese el id de la promocion a agregar");
+            auxId = leer.nextInt();
+            System.out.println("Ingrese la cantidad deseada");
+            auxCantidad = leer.nextInt();
+            for (Producto producto : lstProductos) {
+                if (producto.getId() == auxId) {
+                    nuevoItem = new Item(producto.getId(), producto.getNombre(), auxCantidad, producto.getPrecio() * auxCantidad);
+                }
+            }
+            if (nuevoItem.getNombreProducto() != null) {
+                mementoMovimientos.MementoAgregadoItem(nuevoItem);
+                System.out.println("promocion " + nuevoItem.getNombreProducto() + " agregado con exito");
                 lstItemsOrden.add(nuevoItem);
             }
         }
@@ -150,9 +184,8 @@ public class ComportamientoCliente implements IComportamiento {
             } else {
                 System.out.println("No es posible, la cantidad que deseas quitar es erronea");
             }
-            menuPrincipal();
         }
-
+        menuPrincipal();
     }
 
     public void menuVerMovimientos() {
@@ -181,7 +214,7 @@ public class ComportamientoCliente implements IComportamiento {
                 aux = leer.nextInt() - 1;
                 Item itemRecuperadoAgregado = mementoMovimientos.getLstMovimientosAgregadosItems().get(aux);
                 mementoMovimientos.getLstMovimientosAgregadosItems().remove(aux);
-                lstItemsOrden.add(itemRecuperadoAgregado);
+                lstItemsOrden.remove(itemRecuperadoAgregado);
             } else if (opc == 2) {
                 System.out.println("Ingrese el numero de movimiento referente en la lista de eliminados");
                 aux = leer.nextInt() - 1;
