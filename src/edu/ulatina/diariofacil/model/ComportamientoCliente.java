@@ -24,7 +24,7 @@ public class ComportamientoCliente implements IComportamiento {
     @Override
     public void menuPrincipal() {
         System.out.println(
-                "\n================================Menu Principal==================================\n"
+                "\n================================ Menu Principal ==================================\n"
                 + "1. Ver productos.\n"
                 + "2. Ver promociones.\n"
                 + "3. Ver combos.\n"

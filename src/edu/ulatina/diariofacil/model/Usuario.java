@@ -19,6 +19,15 @@ public abstract class Usuario {
         this.tipoUsuario = tipoUsuario;
         this.comportamiento = comportamiento;
     }
+    public Usuario(String nombre, String apellido, String correo,
+        String contrasena, int tipoUsuario, IComportamiento comportamiento){
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.correo = correo;
+        this.contrasena = contrasena;
+        this.tipoUsuario = tipoUsuario;
+        this.comportamiento = comportamiento;
+    }
 
     public Usuario() {
     }

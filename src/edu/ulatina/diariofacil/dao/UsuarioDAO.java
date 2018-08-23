@@ -32,20 +32,21 @@ public class UsuarioDAO implements IUsuarioDAO {
     private static final Logger LOG = LogManager.getLogger(UsuarioDAO.class.getName());
 
     @Override
-    public void crearUsuario(Usuario usuario) {
+    public void crearUsuario(String nombre, String apellido, int tipoUsuario,
+            String correo, String contrasena) {
         Connection conn = conectorJDBC.conectar();
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement("Insert Into Usuarios (nombre, apellido, idTipoUsuario, correo, contrasena) values (?,?,?,?,?)");
-            ps.setString(1, usuario.getNombre());
-            ps.setString(2, usuario.getApellido());
-            ps.setInt(3, usuario.getTipoUsuario());
-            ps.setString(4, usuario.getCorreo());
-            ps.setString(5, usuario.getContrasena());
+            ps.setString(1, nombre);
+            ps.setString(2, apellido);
+            ps.setInt(3,tipoUsuario);
+            ps.setString(4, correo);
+            ps.setString(5, contrasena);
             ps.executeUpdate();
 
         } catch (SQLException ex) {
-            LOG.error("No se puedo realizar la insercion del usuario: " + usuario, ex);
+            LOG.error("No se puedo realizar la insercion del usuario... ", ex);
         } finally {
             conectorJDBC.cerrarConexion(conn, ps, null);
         }

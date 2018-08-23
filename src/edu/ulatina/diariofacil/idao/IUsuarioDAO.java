@@ -13,7 +13,8 @@ import java.util.List;
  * @author blaken
  */
 public interface IUsuarioDAO {
-    public void crearUsuario(Usuario usuario);
+    public void crearUsuario(String nombre, String apellido, int tipoUsuario,
+            String correo, String contrasena);
     public void borrarUsuario(Usuario usuario);
     public Usuario obtenerUsuario(Usuario usuario);
     public void actualizarUsuario(Usuario usuario);

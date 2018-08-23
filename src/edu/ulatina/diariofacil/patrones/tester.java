@@ -12,8 +12,8 @@ public class tester {
 
     public static void main(String[] args) {
         
-        DiarioFacil df=new DiarioFacil();
-        df.LogInDiarioFacil();
+        DiarioFacil df = new DiarioFacil();
+        df.menuInicio();
 
         
                 
