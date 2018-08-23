@@ -9,8 +9,6 @@ import edu.ulatina.diariofacil.jdbc.Conector;
 import edu.ulatina.diariofacil.idao.IUsuarioDAO;
 import edu.ulatina.diariofacil.model.Admin;
 import edu.ulatina.diariofacil.model.Cliente;
-import edu.ulatina.diariofacil.model.ComportamientoAdmin;
-import edu.ulatina.diariofacil.model.ComportamientoCliente;
 import edu.ulatina.diariofacil.model.IComportamiento;
 import edu.ulatina.diariofacil.model.Usuario;
 import java.sql.Connection;
@@ -28,7 +26,7 @@ import org.apache.logging.log4j.LogManager;
  */
 public class UsuarioDAO implements IUsuarioDAO {
 
-    private final Conector conectorJDBC = new Conector();
+    private final Conector conectorJDBC  = Conector.getConector();
     private static final Logger LOG = LogManager.getLogger(UsuarioDAO.class.getName());
 
     @Override

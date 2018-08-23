@@ -17,6 +17,6 @@ public interface IProvedorDAO {
     public void borrar(int id);
     public Provedor obtener(int id);
     public List <Provedor> obtenerTodos();
-    
+    public List<Provedor> obtenerProvedorXProducto(int idProducto);
     public void actualizar(Provedor provedor);
 }

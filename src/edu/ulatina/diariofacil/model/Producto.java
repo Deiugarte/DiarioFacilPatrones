@@ -5,6 +5,9 @@
  */
 package edu.ulatina.diariofacil.model;
 
+import edu.ulatina.diariofacil.dao.ProvedorDAO;
+import edu.ulatina.diariofacil.patrones.Observable;
+import edu.ulatina.diariofacil.patrones.Observer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +15,7 @@ import java.util.List;
  *
  * @author blaken
  */
-public class Producto {
+public class Producto implements Observable{
     private int id;
     private String nombre;
     private String descripcion;
@@ -22,12 +25,14 @@ public class Producto {
     private List<Provedor> provedores = new ArrayList<>();
 
     public Producto(int id, String nombre, String descripcion, double precio, double descuento, int inventario) {
+        ProvedorDAO pDao = new ProvedorDAO();
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
         this.descuento = descuento;
         this.inventario = inventario;
+        this.provedores = pDao.obtenerProvedorXProducto(id);
     }
 
     public Producto(String nombre, String descripcion, double precio, double descuento, int inventario, List<Provedor> provedores) {
@@ -37,9 +42,7 @@ public class Producto {
         this.descuento = descuento;
         this.inventario = inventario;
         this.provedores = provedores;
-    }
-    
-
+    } 
 
     public int getId() {
         return id;
@@ -87,6 +90,7 @@ public class Producto {
 
     public void setInventario(int inventario) {
         this.inventario = inventario;
+        if(this.inventario < 5) notifyObserver();
     }
 
     public List<Provedor> getProveedores() {
@@ -101,6 +105,18 @@ public class Producto {
     public String toString() {
         return "ID: " + id + ". |  Nombre: " + nombre + ". | Descripcion: " + descripcion + ". | Precio: " + precio
                 + ". | Descuento:"+ descuento + ". | Inventario: " + inventario + ".";
+    }
+
+
+
+    @Override
+    public void notifyObserver() {
+        this.provedores.forEach(provedor -> provedor.update());
+    }
+
+    @Override
+    public void addObserver(Observer o) {
+        this.provedores.add((Provedor) o);
     }
     
 }
