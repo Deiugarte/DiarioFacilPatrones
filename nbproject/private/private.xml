@@ -3,10 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Xpc/Desktop/git%20hub%20branches/DiarioFacilPatrones/src/edu/ulatina/diariofacil/model/ComportamientoCliente.java</file>
-            <file>file:/C:/Users/Xpc/Desktop/git%20hub%20branches/DiarioFacilPatrones/src/edu/ulatina/diariofacil/patrones/TesterCliente.java</file>
-            <file>file:/C:/Users/Xpc/Desktop/git%20hub%20branches/DiarioFacilPatrones/src/edu/ulatina/diariofacil/model/Item.java</file>
-            <file>file:/C:/Users/Xpc/Desktop/git%20hub%20branches/DiarioFacilPatrones/src/edu/ulatina/diariofacil/patrones/tester.java</file>
+            <file>file:/C:/Users/murip/OneDrive/Documents/NetBeansProjects/Diario%20Facil%202.0/DiarioFacilPatrones/src/edu/ulatina/diariofacil/model/Combo.java</file>
+            <file>file:/C:/Users/murip/OneDrive/Documents/NetBeansProjects/Diario%20Facil%202.0/DiarioFacilPatrones/src/edu/ulatina/diariofacil/model/DecoradorCombo.java</file>
+            <file>file:/C:/Users/murip/OneDrive/Documents/NetBeansProjects/Diario%20Facil%202.0/DiarioFacilPatrones/src/edu/ulatina/diariofacil/model/ComboNavideno.java</file>
+            <file>file:/C:/Users/murip/OneDrive/Documents/NetBeansProjects/Diario%20Facil%202.0/DiarioFacilPatrones/src/edu/ulatina/diariofacil/model/ListaProductoCombo.java</file>
+            <file>file:/C:/Users/murip/OneDrive/Documents/NetBeansProjects/Diario%20Facil%202.0/DiarioFacilPatrones/src/edu/ulatina/diariofacil/model/ComboFamiliar.java</file>
+            <file>file:/C:/Users/murip/OneDrive/Documents/NetBeansProjects/Diario%20Facil%202.0/DiarioFacilPatrones/src/edu/ulatina/diariofacil/patrones/TesterCombo.java</file>
         </group>
     </open-files>
 </project-private>
