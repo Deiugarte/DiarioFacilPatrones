@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package edu.ulatina.diariofacil.patrones;
+
+import edu.ulatina.diariofacil.model.Orden;
+
 /**
  *
  * @author madrizdm

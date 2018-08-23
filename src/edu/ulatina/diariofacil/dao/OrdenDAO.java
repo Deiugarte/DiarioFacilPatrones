@@ -18,10 +18,6 @@ import java.util.Date;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-/**
- *
- * @author blaken
- */
 public class OrdenDAO implements IOrdenDAO {
 
    private final Conector conectorJDBC = Conector.getConector();
@@ -86,7 +82,6 @@ public class OrdenDAO implements IOrdenDAO {
         }
         return resultado;
     }
-
     @Override
     public void actualizar(Orden orden) {
         Connection conn = conectorJDBC.conectar();
@@ -98,7 +93,6 @@ public class OrdenDAO implements IOrdenDAO {
             ps.setDate(3, new java.sql.Date(orden.getFecha().getTime()));
             ps.setInt(4, orden.getId());
             ps.executeUpdate();
-
         } catch (SQLException ex) {
             LOG.error("No se puedo realizar la insercion del orden: " + orden, ex);
         } finally {

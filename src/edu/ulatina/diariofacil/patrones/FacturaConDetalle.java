@@ -8,21 +8,26 @@ package edu.ulatina.diariofacil.patrones;
  *
  * @author madrizdm
  */
-import edu.ulatina.diariofacil.model.Item;
-import java.util.ArrayList;
-import java.util.List;
+
+import edu.ulatina.diariofacil.model.Orden;
+
 public class FacturaConDetalle implements iFactura {
-    List <Item> items = new ArrayList<>();
+    Orden orden;
     
+    FacturaConDetalle(Orden orden){
+        this.orden = orden;
+    }
     FacturaConDetalle(){
         
     }
-    FacturaConDetalle(List<Item> items){
-        this.items = items;
-    }
     @Override
     public void generarFactura(){
-        System.out.println("---** Factura Detallada **---");  
+        System.out.println("---** Factura Detallada **---\n"
+                + "Cliente: " + orden.getUsuario().getNombre() + 
+                orden.getUsuario().getApellido() + ".\n"
+                        + "Fecha: " + orden.getFecha());        
+        System.out.println("Cant de Productos: " + orden.getItems().size());
+        System.out.println("Precio: " + orden.getCosto());        
     }
     
 }

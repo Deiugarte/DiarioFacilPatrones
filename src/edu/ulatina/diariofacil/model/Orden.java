@@ -71,6 +71,13 @@ public class Orden {
         this.items = items;
     }
 
+    public double getCosto(){
+        double costo = 0;
+         for (Item it : items) {
+              costo += it.getSubtotal()*it.getCantidad();        
+        }
+         return costo;        
+    }
     @Override
     public String toString() {
         return  "=============================================Orden============================================="+

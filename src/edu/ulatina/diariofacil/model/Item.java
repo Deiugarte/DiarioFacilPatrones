@@ -57,9 +57,6 @@ public class Item {
                 + "\nCantidad: "+ cantidad 
                 + "\nSubtotal: " + subtotal
                 +"\n----------------------------------------";
-    }
-    
-    
-    
+    }    
     
 }
