@@ -137,11 +137,6 @@ public class UsuarioDAO implements IUsuarioDAO {
                 String correo = rs.getString("correo");
                 String contrasena = rs.getString("contrasena");
                 int idTipoUsuario = rs.getInt("idTipoUsuario");
-                if(rs.getInt("idTipoUsuario")==1){
-                    comportamiento=new ComportamientoAdmin();
-                }else if(rs.getInt("idTipoUsuario")==2){
-                    comportamiento=new ComportamientoCliente();
-                }
                 if(rs.getInt("idTipoUsuario")==2){
                 usuarios.add(new Cliente(id, nombre, apellido, correo, contrasena, idTipoUsuario));
                 }else if(rs.getInt("idTipoUsuario")==1){
