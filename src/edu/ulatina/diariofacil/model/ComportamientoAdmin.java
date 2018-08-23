@@ -161,7 +161,6 @@ public class ComportamientoAdmin implements IComportamiento {
 
     //Acciones sobre Provedores.
     public void agregarProvedor() {
-        List<Provedor> listProvedores = provedorDAO.obtenerTodos();
         System.out.println("--- * Agregar Provedor * ---\n"
                 + "Digite el nombre del Provedor: ");
         leer.nextLine();
