@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ComportamientoCliente implements IComportamiento {
+    
+    Cliente cliente;
 
     List<Item> lstItemsOrden = new ArrayList<>();
     Memento mementoMovimientos = new Memento();
@@ -20,6 +22,15 @@ public class ComportamientoCliente implements IComportamiento {
     OrdenDAO ordenDao = new OrdenDAO();
     Orden ordenCliente = new Orden();
     Scanner leer = new Scanner(System.in);
+    
+    
+    public ComportamientoCliente(){
+        
+    }
+    
+    public ComportamientoCliente(Usuario cliente){
+        this.cliente = (Cliente)cliente;       
+    }
 
     @Override
     public void menuPrincipal() {
@@ -227,6 +238,7 @@ public class ComportamientoCliente implements IComportamiento {
     }
 
     public void menuPagarOrden() {
+         
         ordenCliente.setItems(lstItemsOrden);
         ordenCliente.setFecha(Time.valueOf(LocalTime.now()));
         ordenCliente.setId(lstItemsOrden.size() + mementoMovimientos.getLstMovimientosAgregadosItems().size());

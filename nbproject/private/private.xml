@@ -3,10 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Xpc/Desktop/git%20hub%20branches/DiarioFacilPatrones/src/edu/ulatina/diariofacil/model/Cliente.java</file>
-            <file>file:/C:/Users/Xpc/Desktop/git%20hub%20branches/DiarioFacilPatrones/src/edu/ulatina/diariofacil/dao/UsuarioDAO.java</file>
-            <file>file:/C:/Users/Xpc/Desktop/git%20hub%20branches/DiarioFacilPatrones/src/edu/ulatina/diariofacil/patrones/tester.java</file>
-            <file>file:/C:/Users/Xpc/Desktop/git%20hub%20branches/DiarioFacilPatrones/src/edu/ulatina/diariofacil/model/DiarioFacil.java</file>
+            <file>file:/C:/Users/madrizdm/Documents/ULatina/Patrones/Proyecto/DiarioFacilPatrones/src/edu/ulatina/diariofacil/dao/UsuarioDAO.java</file>
+            <file>file:/C:/Users/madrizdm/Documents/ULatina/Patrones/Proyecto/DiarioFacilPatrones/src/edu/ulatina/diariofacil/model/IComportamiento.java</file>
+            <file>file:/C:/Users/madrizdm/Documents/ULatina/Patrones/Proyecto/DiarioFacilPatrones/src/edu/ulatina/diariofacil/patrones/tester.java</file>
+            <file>file:/C:/Users/madrizdm/Documents/ULatina/Patrones/Proyecto/DiarioFacilPatrones/src/edu/ulatina/diariofacil/model/ComportamientoAdmin.java</file>
+            <file>file:/C:/Users/madrizdm/Documents/ULatina/Patrones/Proyecto/DiarioFacilPatrones/src/edu/ulatina/diariofacil/model/ComportamientoCliente.java</file>
+            <file>file:/C:/Users/madrizdm/Documents/ULatina/Patrones/Proyecto/DiarioFacilPatrones/src/edu/ulatina/diariofacil/model/Orden.java</file>
+            <file>file:/C:/Users/madrizdm/Documents/ULatina/Patrones/Proyecto/DiarioFacilPatrones/src/edu/ulatina/diariofacil/model/Cliente.java</file>
+            <file>file:/C:/Users/madrizdm/Documents/ULatina/Patrones/Proyecto/DiarioFacilPatrones/src/edu/ulatina/diariofacil/model/Usuario.java</file>
+            <file>file:/C:/Users/madrizdm/Documents/ULatina/Patrones/Proyecto/DiarioFacilPatrones/src/edu/ulatina/diariofacil/model/DiarioFacil.java</file>
+            <file>file:/C:/Users/madrizdm/Documents/ULatina/Patrones/Proyecto/DiarioFacilPatrones/src/edu/ulatina/diariofacil/idao/IUsuarioDAO.java</file>
         </group>
     </open-files>
 </project-private>

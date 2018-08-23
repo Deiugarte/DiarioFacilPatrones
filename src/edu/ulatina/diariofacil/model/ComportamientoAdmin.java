@@ -9,6 +9,8 @@ import java.util.Scanner;
 import static jdk.nashorn.tools.ShellFunctions.input;
 
 public class ComportamientoAdmin implements IComportamiento {
+    
+    
 
     ProvedorDAO provedorDAO = new ProvedorDAO();
     ProductoDAO productoDAO = new ProductoDAO();

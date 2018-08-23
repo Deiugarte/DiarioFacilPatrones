@@ -11,8 +11,7 @@ import java.util.Scanner;
 
 
 public class DiarioFacil {
-
-   
+    Usuario usuario;   
 
     public void menuInicio() {
         Scanner sc = new Scanner(System.in);
@@ -21,7 +20,6 @@ public class DiarioFacil {
                 + "1. Login.\n"
                 + "2. Crear Usuario.\n"
                 + "3. Salir.");
-
         switch (sc.nextInt()) {
             case 1: {
                 logInDiarioFacil();
@@ -56,8 +54,10 @@ public class DiarioFacil {
             if (U.getCorreo().equals(email) && U.getContrasena().equals(contrasena)) {
                 if (U.getTipoUsuario() == 1) {
                     ((Admin) U).getComportamiento().menuPrincipal();
+                    
                 } else {
                     ((Cliente) U).getComportamiento().menuPrincipal();
+                    
                 }
             }
         }
