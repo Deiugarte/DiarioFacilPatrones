@@ -7,6 +7,11 @@ package edu.ulatina.diariofacil.dao;
 
 import edu.ulatina.diariofacil.jdbc.Conector;
 import edu.ulatina.diariofacil.idao.IUsuarioDAO;
+import edu.ulatina.diariofacil.model.Admin;
+import edu.ulatina.diariofacil.model.Cliente;
+import edu.ulatina.diariofacil.model.ComportamientoAdmin;
+import edu.ulatina.diariofacil.model.ComportamientoCliente;
+import edu.ulatina.diariofacil.model.IComportamiento;
 import edu.ulatina.diariofacil.model.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -117,6 +122,7 @@ public class UsuarioDAO implements IUsuarioDAO {
 
     @Override
     public List<Usuario> obtenerUsuarios() {
+        IComportamiento comportamiento;
         Connection conn = conectorJDBC.conectar();
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -131,8 +137,16 @@ public class UsuarioDAO implements IUsuarioDAO {
                 String correo = rs.getString("correo");
                 String contrasena = rs.getString("contrasena");
                 int idTipoUsuario = rs.getInt("idTipoUsuario");
-//                Cliente resultado = idTipoUsuario == 1 ? new TODO: change to admin or client if tipo usuario
-//                usuarios.add(new Usuario(id, nombre, apellido, correo, contrasena, idTipoUsuario));
+                if(rs.getInt("idTipoUsuario")==1){
+                    comportamiento=new ComportamientoAdmin();
+                }else if(rs.getInt("idTipoUsuario")==2){
+                    comportamiento=new ComportamientoCliente();
+                }
+                if(rs.getInt("idTipoUsuario")==2){
+                usuarios.add(new Cliente(id, nombre, apellido, correo, contrasena, idTipoUsuario));
+                }else if(rs.getInt("idTipoUsuario")==1){
+                usuarios.add(new Admin(id, nombre, apellido, correo, contrasena, idTipoUsuario));
+                }        
             }
 
         } catch (SQLException ex) {
