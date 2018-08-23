@@ -175,7 +175,7 @@ public class ComportamientoAdmin implements IComportamiento {
 
     public void editarProvedor() {
         provedorDAO.obtenerTodos().forEach((a) -> System.out.println(a));
-        System.out.println("--- * Editarr Provedor * ---\n"
+        System.out.println("--- * Editar Provedor * ---\n"
                 + "Digite el ID del Provedor a editar: ");
         int id = leer.nextInt();
 

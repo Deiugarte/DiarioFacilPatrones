@@ -88,14 +88,14 @@ public class ComportamientoCliente implements IComportamiento {
             auxCantidad = leer.nextInt();
             for (Producto producto : lstProductos) {
                 if (producto.getId() == auxId) {
-                    nuevoItem = new Item(producto.getId(), producto.getNombre(), auxCantidad, producto.getPrecio() * auxCantidad);
+                    nuevoItem = new Item(producto.getId(), producto, auxCantidad, producto.getPrecio() * auxCantidad);
                 }
             }
-            if (nuevoItem.getNombreProducto() != null) {
+          //  if (nuevoItem.getNombreProducto() != null) {
                 mementoMovimientos.MementoAgregadoItem(nuevoItem);
-                System.out.println("Producto " + nuevoItem.getNombreProducto() + " agregado con exito");
+                System.out.println("Producto " + nuevoItem.getProducto().getNombre() + " agregado con exito");
                 lstItemsOrden.add(nuevoItem);
-            }
+            //}
         }
 
         menuPrincipal();
@@ -118,14 +118,14 @@ public class ComportamientoCliente implements IComportamiento {
             auxCantidad = leer.nextInt();
             for (Producto producto : lstProductos) {
                 if (producto.getId() == auxId) {
-                    nuevoItem = new Item(producto.getId(), producto.getNombre(), auxCantidad, producto.getPrecio() * auxCantidad);
+                    nuevoItem = new Item(producto.getId(), producto, auxCantidad, producto.getPrecio() * auxCantidad);
                 }
             }
-            if (nuevoItem.getNombreProducto() != null) {
+        //    if (nuevoItem.getNombreProducto()!= null) { NO LOGIC
                 mementoMovimientos.MementoAgregadoItem(nuevoItem);
-                System.out.println("promocion " + nuevoItem.getNombreProducto() + " agregado con exito");
+                System.out.println("promocion " + nuevoItem.getProducto().getNombre() + " agregado con exito");
                 lstItemsOrden.add(nuevoItem);
-            }
+        //    }
         }
 
         menuPrincipal();
@@ -183,10 +183,10 @@ public class ComportamientoCliente implements IComportamiento {
             if (auxCantidad < auxCantidadProducto) {
                 lstItemsOrden.get(auxNumItem).setCantidad(auxCantidadProducto - auxCantidad);
                 auxItem.setId(lstItemsOrden.get(auxNumItem).getId());
-                auxItem.setNombreProducto(lstItemsOrden.get(auxNumItem).getNombreProducto());
+                auxItem.setNombreProducto(lstItemsOrden.get(auxNumItem).getProducto());
                 auxItem.setSubtotal(auxPrecio * auxCantidad);
                 auxItem.setCantidad(auxCantidad);
-                System.out.println("Se a quitado " + auxCantidad + " de " + auxItem.getNombreProducto() + "de tu orden.");
+                System.out.println("Se a quitado " + auxCantidad + " de " + auxItem.getProducto().getNombre() + "de tu orden.");
                 mementoMovimientos.MementoEliminadoItem(auxItem);
             } else if (auxCantidad == auxCantidadProducto) {
                 mementoMovimientos.MementoEliminadoItem(lstItemsOrden.get(auxNumItem));
@@ -243,6 +243,7 @@ public class ComportamientoCliente implements IComportamiento {
         ordenCliente.setFecha(Time.valueOf(LocalTime.now()));
         ordenCliente.setId(lstItemsOrden.size() + mementoMovimientos.getLstMovimientosAgregadosItems().size());
         ordenCliente.setDescuento(lstItemsOrden.size() / 2);
+        ordenDao.crear(ordenCliente);
         System.out.println(ordenCliente);
     }
 }
