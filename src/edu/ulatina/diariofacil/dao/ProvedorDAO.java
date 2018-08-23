@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class ProvedorDAO implements IProvedorDAO {
 
-    private final Conector conectorJDBC = new Conector();
+    private final Conector conectorJDBC  = Conector.getConector();
     private static final Logger LOG = LogManager.getLogger(UsuarioDAO.class.getName());
 
     @Override

@@ -25,8 +25,17 @@ public class Conector {
     //  Database credentials
     private final String USER = "patrones";
     private final String PASS = "patrones123";
+    
+    private static Conector conector;
 
-    public Conector() {
+    public static Conector getConector() {
+        if(conector == null) {
+           conector = new Conector();
+        }
+         return conector;
+    } 
+    
+    private Conector() {
     }
 
     public Connection conectar() {

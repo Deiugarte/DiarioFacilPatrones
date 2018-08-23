@@ -23,7 +23,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class ProductoDAO implements IProductoDAO {
 
-    private final Conector conectorJDBC = new Conector();
+    private final Conector conectorJDBC = Conector.getConector();
     private static final Logger LOG = LogManager.getLogger(ProductoDAO.class.getName());
 
    
