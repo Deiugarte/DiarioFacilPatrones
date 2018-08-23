@@ -3,16 +3,16 @@ package edu.ulatina.diariofacil.model;
 
 public class Item {
     private int id;
-    private String nombreProducto;
+    private Producto producto;
     private int cantidad;
     private double subtotal;
 
     public Item() {
     }
 
-    public Item(int id, String nombreProducto, int cantidad, double subtotal) {
+    public Item(int id, Producto producto, int cantidad, double subtotal) {
         this.id = id;
-        this.nombreProducto = nombreProducto;
+        this.producto = producto;
         this.cantidad = cantidad;
         this.subtotal = subtotal;
     }
@@ -25,12 +25,12 @@ public class Item {
         this.id = id;
     }
 
-    public String getNombreProducto() {
-        return nombreProducto;
+    public Producto getProducto() {
+        return producto;
     }
 
-    public void setNombreProducto(String nombreProducto) {
-        this.nombreProducto = nombreProducto;
+    public void setNombreProducto(Producto producto) {
+        this.producto = producto;
     }
 
     public int getCantidad() {
@@ -53,7 +53,7 @@ public class Item {
     public String toString() {
         return  "------------------Item------------------"
                 + "\nId: "+ id 
-                + "\nProducto: "+ nombreProducto 
+                + "\nProducto: "+ producto.getNombre()
                 + "\nCantidad: "+ cantidad 
                 + "\nSubtotal: " + subtotal
                 +"\n----------------------------------------";

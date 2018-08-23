@@ -70,6 +70,10 @@ public class Orden {
     public void setItems(List<Item> items) {
         this.items = items;
     }
+    
+    public void addItems(Item i) {
+        this.items.add(i);
+    }
 
     public double getCosto(){
         double costo = 0;
