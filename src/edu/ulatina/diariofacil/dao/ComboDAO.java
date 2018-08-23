@@ -53,7 +53,7 @@ public class ComboDAO implements IComboDAO {
             ps.executeUpdate();
 
         } catch (SQLException ex) {
-            LOG.error("No se puedo realizar la insercion del orden: " + combo, ex);
+            LOG.error("No se puedo realizar el borrado del combo: " + combo, ex);
         } finally {
             conectorJDBC.cerrarConexion(conn, ps, null);
         }
@@ -81,7 +81,7 @@ public class ComboDAO implements IComboDAO {
             
                 
         } catch (SQLException ex) {
-            LOG.error("No se puedo realizar la insercion del orden: " + combo, ex);
+            LOG.error("No se puedo obtener el combo: " + combo, ex);
         } finally {
             conectorJDBC.cerrarConexion(conn, ps, null);
         }
@@ -100,7 +100,7 @@ public class ComboDAO implements IComboDAO {
             ps.executeUpdate();
 
         } catch (SQLException ex) {
-            LOG.error("No se puedo realizar la insercion del orden: " + combo, ex);
+            LOG.error("No se puedo realizar la actualizacion del combo: " + combo, ex);
         } finally {
             conectorJDBC.cerrarConexion(conn, ps, null);
         }
