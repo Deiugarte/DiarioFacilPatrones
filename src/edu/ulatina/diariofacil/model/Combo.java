@@ -10,36 +10,47 @@ import java.util.List;
 
 /**
  *
- * @author blaken
+ * @author murip
  */
-public class Combo {
+public abstract class Combo{
+    private String descripcion;
     private int id;
-    private int precio;
+    private double precio;
     private List<Producto> productos = new ArrayList<>();
 
-    public Combo(int id, int precio) {
+    public Combo(){
+    }
+
+    public Combo(String descripcion, int id, double precio) {
+        this.descripcion = descripcion;
         this.id = id;
         this.precio = precio;
+    }
+    
+    
+    
+    public String getDescripcion() {
+        return descripcion;
     }
 
     public int getId() {
         return id;
     }
 
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
 
-    public int getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(int precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
-    }
-
-    public List<Producto> getProductos() {
-        return productos;
     }
 
     public void setProductos(List<Producto> productos) {
@@ -47,4 +58,10 @@ public class Combo {
     }
     
     
+
+    public List<Producto> getProductos() {
+        return productos;
+    }
+    
+    public abstract double costo();
 }
