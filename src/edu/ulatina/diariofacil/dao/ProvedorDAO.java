@@ -22,7 +22,7 @@ import java.util.List;
  * @author blaken
  */
 public class ProvedorDAO implements IProvedorDAO {
-    
+
     private final Conector conectorJDBC = new Conector();
     private static final Logger LOG = LogManager.getLogger(UsuarioDAO.class.getName());
 
@@ -49,14 +49,14 @@ public class ProvedorDAO implements IProvedorDAO {
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement("Delete from Proveedores Where id=?");
-            ps.setInt(1,id);
+            ps.setInt(1, id);
             ps.executeUpdate();
 
         } catch (SQLException ex) {
             LOG.error("No se puedo borrar el proveedo ", ex);
         } finally {
             conectorJDBC.cerrarConexion(conn, ps, null);
-       }
+        }
     }
 
     @Override
@@ -67,7 +67,7 @@ public class ProvedorDAO implements IProvedorDAO {
         Provedor resultado = null;
         try {
             ps = conn.prepareStatement("Select id, nombre, correo from Proveedores where id=? ");
-            ps.setInt(1,id);
+            ps.setInt(1, id);
             rs = ps.executeQuery();
             while (rs.next()) {
                 String nombre = rs.getString("nombre");
@@ -82,6 +82,7 @@ public class ProvedorDAO implements IProvedorDAO {
         }
         return resultado;
     }
+
     @Override
     public List<Provedor> obtenerTodos() {
         Connection conn = conectorJDBC.conectar();
@@ -103,7 +104,7 @@ public class ProvedorDAO implements IProvedorDAO {
         } finally {
             conectorJDBC.cerrarConexion(conn, ps, rs);
         }
-        
+
         return resultado;
     }
 
@@ -123,6 +124,32 @@ public class ProvedorDAO implements IProvedorDAO {
         } finally {
             conectorJDBC.cerrarConexion(conn, ps, null);
         }
-       }
-    
+    }
+
+    @Override
+    public List<Provedor> obtenerProvedorXProducto(int idProducto) {
+        Connection conn = conectorJDBC.conectar();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Provedor> resultado = new ArrayList<>();
+        try {
+            ps = conn.prepareStatement("SELECT  p.* FROM patrones.ProductosPorProveedor  ppp  join patrones.Proveedores p on p.id = ppp.idProducto where ppp.idProducto =?");
+            ps.setInt(1, idProducto);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String nombre = rs.getString("nombre");
+                String correo = rs.getString("correo");
+                resultado.add(new Provedor(id, nombre, correo));
+            }
+
+        } catch (SQLException ex) {
+            LOG.error("No se pudieron obtener los provedores", ex);
+        } finally {
+            conectorJDBC.cerrarConexion(conn, ps, rs);
+        }
+
+        return resultado;
+    }
+
 }
